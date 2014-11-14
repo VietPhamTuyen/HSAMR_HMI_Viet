@@ -21,8 +21,11 @@ public final class R {
         public static final int TextViewValueAngle=0x7f07000d;
         public static final int bt_connect_hint=0x7f070000;
         public static final int buttonSetupBluetooth=0x7f070003;
-        public static final int menu_settings=0x7f070017;
+        public static final int landscapebutton=0x7f070017;
+        public static final int menu_settings=0x7f07001a;
         public static final int paired_devices=0x7f070001;
+        public static final int portraitbutton=0x7f070019;
+        public static final int textView1=0x7f070018;
         public static final int textViewLabelBluetooth=0x7f070004;
         public static final int textViewLabelDistanceBack=0x7f070010;
         public static final int textViewLabelDistanceBackSide=0x7f070014;
@@ -45,6 +48,7 @@ public final class R {
         public static final int activity_bluetooth=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int device_name=0x7f030002;
+        public static final int landscapemode=0x7f030003;
     }
     public static final class menu {
         public static final int activity_bluetooth=0x7f060000;
@@ -55,13 +59,15 @@ public final class R {
         public static final int app_name=0x7f040000;
         public static final int bluetooth_label=0x7f040015;
         public static final int bt_adapter_available=0x7f04000b;
-        public static final int bt_connect_hint=0x7f040017;
+        public static final int bt_connect_hint=0x7f040019;
         public static final int disconnetButton=0x7f040016;
         public static final int distance_back_side_value=0x7f040014;
         public static final int distance_back_value=0x7f040013;
         public static final int distance_front_side_value=0x7f040012;
         public static final int distance_front_value=0x7f040011;
+        public static final int landscapeButton=0x7f040017;
         public static final int menu_settings=0x7f040001;
+        public static final int portraitButton=0x7f040018;
         public static final int setupBluetooth=0x7f040009;
         public static final int text_scan_bt_devices=0x7f04000a;
         public static final int textview_status=0x7f04000f;

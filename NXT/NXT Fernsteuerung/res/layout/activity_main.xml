@@ -243,4 +243,13 @@
         android:textOff="SCOUT"
         android:textOn="SCOUT" />
 
+    <Button
+        android:id="@+id/landscapebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:onClick="LandscapeButton"
+        android:text="@string/landscapeButton" />
+
 </RelativeLayout>

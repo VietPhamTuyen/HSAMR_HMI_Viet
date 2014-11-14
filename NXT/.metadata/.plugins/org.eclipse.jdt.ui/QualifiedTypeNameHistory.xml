@@ -3,4 +3,5 @@
 <fullyQualifiedTypeName name="parkingRobot.hsamr3.HMIviet.Hmi"/>
 <fullyQualifiedTypeName name="parkingRobot.hsamr3.HMIviet.Hmi.Command"/>
 <fullyQualifiedTypeName name="parkingRobot.hsamr3.Guidance.Guidance.CurrentStatus"/>
+<fullyQualifiedTypeName name="android.content.pm.ActivityInfo"/>
 </qualifiedTypeNameHistroy>

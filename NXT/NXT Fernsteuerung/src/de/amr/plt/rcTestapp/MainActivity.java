@@ -11,6 +11,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -276,5 +277,29 @@ public class MainActivity extends Activity {
 		finish();
 	}
 
+	
+	
+	
+	//--NEW--------------------------------------------------------------------------------
+	
+	public void LandscapeButton(View view){
+	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		setContentView(R.layout.landscapemode);
+	}
+	
+	public void PortraitButton(View view){
+		 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			setContentView(R.layout.activity_main);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
