@@ -46,10 +46,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        
-        
-    	Map ourView;
-        
         //get the BT-Adapter
         mBtAdapter = BluetoothAdapter.getDefaultAdapter();       
      
@@ -298,13 +294,7 @@ public class MainActivity extends Activity {
 	
 	
 	
-
-	public void TestButton(View view){
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-	    ourView = new Map(this);
-	    setContentView(ourView);
-	}
-
+	
 	
 	
 	

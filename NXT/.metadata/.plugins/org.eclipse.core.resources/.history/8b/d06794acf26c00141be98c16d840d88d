@@ -252,14 +252,4 @@
         android:onClick="LandscapeButton"
         android:text="@string/landscapeButton" />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="85dp"
-        android:layout_toLeftOf="@+id/landscapebutton"
-        android:onClick="TestButton"
-        android:text="@string/testButton" />
-
 </RelativeLayout>

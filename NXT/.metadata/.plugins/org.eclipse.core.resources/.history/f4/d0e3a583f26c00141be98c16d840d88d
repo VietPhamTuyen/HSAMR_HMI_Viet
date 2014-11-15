@@ -24,6 +24,5 @@
 	<string name="disconnetButton">Disconnect</string>
 	<string name="landscapeButton">Landscape</string>
 	<string name="portraitButton">Portrait</string>
-	<string name="testButton">Test</string>
 	<string name="bt_connect_hint">Please select a Robot from the list. Make sure it has been paired, is within bluetooth reach and has been set to connect mode.</string>
 </resources>
