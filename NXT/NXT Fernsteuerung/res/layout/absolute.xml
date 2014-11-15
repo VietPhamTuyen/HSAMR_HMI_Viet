@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="851dp"
+        android:layout_y="36dp"
+        android:text="DATA" />
+
+    <FrameLayout
+        android:layout_width="809dp"
+        android:layout_height="443dp"
+        android:layout_x="1dp"
+        android:layout_y="2dp" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="824dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/map_hor_v1_2" />
+    </FrameLayout>
+
+</AbsoluteLayout>
