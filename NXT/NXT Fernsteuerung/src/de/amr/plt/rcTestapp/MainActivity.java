@@ -12,6 +12,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import de.amr.plt.rcParkingRobot.AndroidHmiPLT;
+
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.res.Configuration;
+import android.os.Bundle;
+
 
 /**
  * The activity visualizes NXT data such as bluetooth connection, current status, x-,y-coordinate, angle and distance values. 
@@ -44,11 +52,37 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction =
+                fragmentManager.beginTransaction();
+        Configuration configInfo = getResources().getConfiguration();
+
+        if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
+
+            FragmentPortrait fragmentPortrait = new FragmentPortrait();
+
+            fragmentTransaction.replace(android.R.id.content,
+                    fragmentPortrait);
+            
+            
+        } else {
+            FragmentLandscape fragmentLandscape = new FragmentLandscape();
+
+            fragmentTransaction.replace(android.R.id.content,
+                    fragmentLandscape);
+
+        }
+        fragmentTransaction.commit();
+
+
         
         
         
-    	Map ourView;
+        
+        
+        /*    setContentView(R.layout.activity_main);
+        
         
         //get the BT-Adapter
         mBtAdapter = BluetoothAdapter.getDefaultAdapter();       
@@ -88,6 +122,8 @@ public class MainActivity extends Activity {
     		    }
         	}
         });
+        
+        */
         
     }
 
@@ -287,22 +323,36 @@ public class MainActivity extends Activity {
 	//--NEW--------------------------------------------------------------------------------
 	
 	public void LandscapeButton(View view){
-	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		setContentView(R.layout.landscapemode);
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+    	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else {
+    	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+		
+
+		//setContentView(R.layout.landscapemode);
 	}
 	
 	public void PortraitButton(View view){
 		 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-			setContentView(R.layout.activity_main);
+	//		setContentView(R.layout.activity_main);
 	}
 	
 	
 	
 
 	public void TestButton(View view){
+     /*   Map ourView; 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 	    ourView = new Map(this);
 	    setContentView(ourView);
+	 */ 
+
+	    
+	    
+	    
+	    
 	}
 
 	

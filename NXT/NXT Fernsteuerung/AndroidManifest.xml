@@ -4,7 +4,7 @@
     android:versionName="1.0">
 
     <uses-sdk
-        android:minSdkVersion="8"/>
+        android:minSdkVersion="11"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
@@ -15,7 +15,7 @@
         <activity
             android:name="MainActivity"
             android:label="@string/title_activity_main" 
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:configChanges = "orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
