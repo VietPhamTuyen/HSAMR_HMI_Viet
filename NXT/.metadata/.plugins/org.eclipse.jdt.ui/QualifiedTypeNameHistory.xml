@@ -6,4 +6,7 @@
 <fullyQualifiedTypeName name="android.content.pm.ActivityInfo"/>
 <fullyQualifiedTypeName name="android.app.Fragment"/>
 <fullyQualifiedTypeName name="android.content.res.Configuration"/>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.R.id"/>
+<fullyQualifiedTypeName name="android.view.MenuInflater"/>
 </qualifiedTypeNameHistroy>

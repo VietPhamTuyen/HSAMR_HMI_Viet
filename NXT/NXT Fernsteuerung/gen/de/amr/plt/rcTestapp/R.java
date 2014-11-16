@@ -20,6 +20,8 @@ public final class R {
         public static final int RelativeLayout1=0x7f070002;
         public static final int TextViewLableAngle=0x7f07000c;
         public static final int TextViewValueAngle=0x7f07000d;
+        public static final int action_compose=0x7f070020;
+        public static final int action_search=0x7f07001f;
         public static final int bt_connect_hint=0x7f070000;
         public static final int button1=0x7f070018;
         public static final int buttonSetupBluetooth=0x7f070003;
@@ -59,18 +61,21 @@ public final class R {
     public static final class menu {
         public static final int activity_bluetooth=0x7f060000;
         public static final int activity_main=0x7f060001;
+        public static final int activity_main_action=0x7f060002;
     }
     public static final class string {
         public static final int angle_Value=0x7f040010;
         public static final int app_name=0x7f040000;
         public static final int bluetooth_label=0x7f040015;
         public static final int bt_adapter_available=0x7f04000b;
-        public static final int bt_connect_hint=0x7f04001a;
+        public static final int bt_connect_hint=0x7f04001c;
         public static final int disconnetButton=0x7f040016;
         public static final int distance_back_side_value=0x7f040014;
         public static final int distance_back_value=0x7f040013;
         public static final int distance_front_side_value=0x7f040012;
         public static final int distance_front_value=0x7f040011;
+        public static final int ic_action_name=0x7f04001b;
+        public static final int ic_action_search=0x7f04001a;
         public static final int landscapeButton=0x7f040017;
         public static final int menu_settings=0x7f040001;
         public static final int portraitButton=0x7f040018;

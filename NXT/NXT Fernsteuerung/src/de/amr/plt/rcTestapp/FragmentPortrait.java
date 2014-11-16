@@ -13,4 +13,14 @@ public class FragmentPortrait extends Fragment{
 			Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.activity_main, container, false);
 	}
+	
+	
+    @Override	
+	public void onDestroy(){
+		super.onDestroy();
+	}
+	
+	
+	
+	
 }

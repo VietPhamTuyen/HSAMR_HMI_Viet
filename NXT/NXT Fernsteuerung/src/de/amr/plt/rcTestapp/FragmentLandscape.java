@@ -13,4 +13,13 @@ public class FragmentLandscape extends Fragment{
 			Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.landscapemode, container, false);
 	}
+	
+	
+    @Override	
+	public void onDestroy(){
+		super.onDestroy();
+	}
+	
+	
+	
 }

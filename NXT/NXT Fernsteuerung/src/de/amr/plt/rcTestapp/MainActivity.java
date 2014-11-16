@@ -16,6 +16,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -54,35 +55,31 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction =
-                fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Configuration configInfo = getResources().getConfiguration();
+      //  fragmentTransaction.add(android.R.id.content, null, null);
 
         if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
 
-            FragmentPortrait fragmentPortrait = new FragmentPortrait();
-
-            fragmentTransaction.replace(android.R.id.content,
-                    fragmentPortrait);
-            
+            FragmentLandscape fragmentLandscape = new FragmentLandscape();
+            fragmentTransaction.replace(android.R.id.content,fragmentLandscape);
             
         } else {
-            FragmentLandscape fragmentLandscape = new FragmentLandscape();
-
-            fragmentTransaction.replace(android.R.id.content,
-                    fragmentLandscape);
-
+        	
+            FragmentPortrait fragmentPortrait = new FragmentPortrait();
+            fragmentTransaction.replace(android.R.id.content,fragmentPortrait);
+            
         }
         fragmentTransaction.commit();
 
 
+       
         
         
         
         
-        
-        /*    setContentView(R.layout.activity_main);
-        
+     //       setContentView(R.layout.activity_main);
+     /*  
         
         //get the BT-Adapter
         mBtAdapter = BluetoothAdapter.getDefaultAdapter();       
@@ -123,14 +120,48 @@ public class MainActivity extends Activity {
         	}
         });
         
-        */
+    */    
         
     }
+    
+    
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            FragmentLandscape fragmentLandscape = new FragmentLandscape();
+            fragmentTransaction.replace(android.R.id.content,fragmentLandscape);
+            
+        } else {
+        	
+            FragmentPortrait fragmentPortrait = new FragmentPortrait();
+            fragmentTransaction.replace(android.R.id.content,fragmentPortrait);
+            
+        }
+        fragmentTransaction.commit();
+    }
+    
+    
+    
+    
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		return true;
+		
+
+		    MenuInflater inflater = getMenuInflater();
+		    inflater.inflate(R.menu.activity_main_action, menu);
+		    return super.onCreateOptionsMenu(menu);
+		
+
+		
+		//return true;
     }
 	
     @Override
@@ -349,13 +380,30 @@ public class MainActivity extends Activity {
 	    setContentView(ourView);
 	 */ 
 
-	    
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Configuration configInfo = getResources().getConfiguration();
+
+        if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
+
+            FragmentLandscape fragmentLandscape = new FragmentLandscape();
+            fragmentTransaction.replace(android.R.id.content,fragmentLandscape);
+            
+        } else {
+        	
+            FragmentPortrait fragmentPortrait = new FragmentPortrait();
+            fragmentTransaction.replace(android.R.id.content,fragmentPortrait);
+            
+        }
+        fragmentTransaction.commit();
 	    
 	    
 	    
 	}
 
-	
+	public void menu(View view){
+		Toast.makeText(this, "UAUAUAUAUAUAUA", Toast.LENGTH_SHORT).show();
+	}
 	
 	
 	
