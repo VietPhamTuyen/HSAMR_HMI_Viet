@@ -22,9 +22,11 @@ public final class R {
         public static final int TextViewValueAngle=0x7f07000d;
         public static final int action_compose=0x7f070020;
         public static final int action_search=0x7f07001f;
+        public static final int bluetooth=0x7f070022;
         public static final int bt_connect_hint=0x7f070000;
         public static final int button1=0x7f070018;
         public static final int buttonSetupBluetooth=0x7f070003;
+        public static final int group1=0x7f070023;
         public static final int imageView1=0x7f07001d;
         public static final int landscape_fragment=0x7f070019;
         public static final int landscape_fragmentl=0x7f07001b;
@@ -33,6 +35,7 @@ public final class R {
         public static final int paired_devices=0x7f070001;
         public static final int portrait_fragment=0x7f07001a;
         public static final int portraitbutton=0x7f07001c;
+        public static final int testmenu=0x7f070021;
         public static final int textViewLabelBluetooth=0x7f070004;
         public static final int textViewLabelDistanceBack=0x7f070010;
         public static final int textViewLabelDistanceBackSide=0x7f070014;

@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -57,8 +58,7 @@ public class MainActivity extends Activity {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Configuration configInfo = getResources().getConfiguration();
-      //  fragmentTransaction.add(android.R.id.content, null, null);
-
+        
         if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
 
             FragmentLandscape fragmentLandscape = new FragmentLandscape();
@@ -68,7 +68,13 @@ public class MainActivity extends Activity {
         	
             FragmentPortrait fragmentPortrait = new FragmentPortrait();
             fragmentTransaction.replace(android.R.id.content,fragmentPortrait);
-            
+         
+            try{  setBluetooth(); }
+            catch(Exception e){
+            	Toast.makeText(this, "Bluetooth does not work!!!!!!", Toast.LENGTH_SHORT).show();
+            }   		
+     		   
+         
         }
         fragmentTransaction.commit();
 
@@ -79,48 +85,9 @@ public class MainActivity extends Activity {
         
         
      //       setContentView(R.layout.activity_main);
-     /*  
-        
-        //get the BT-Adapter
-        mBtAdapter = BluetoothAdapter.getDefaultAdapter();       
-     
-        //If the adapter is null, then Bluetooth is not supported
-        if (mBtAdapter == null) {
-            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }       
-        
-        final Button connectButton = (Button) findViewById(R.id.buttonSetupBluetooth);
-        //on click call the BluetoothActivity to choose a listed device
-        connectButton.setOnClickListener(new OnClickListener() {
-        	public void onClick(View v){
-        		Intent serverIntent = new Intent(getApplicationContext(),BluetoothActivity.class);
-				startActivityForResult(serverIntent, REQUEST_SETUP_BT_CONNECTION);
-        	}
-        });
-        
-        //toggle button allows user to set mode of the NXT device
-        final ToggleButton toggleButton = (ToggleButton) findViewById(R.id.toggleMode);
-        //disable button initially 
-        toggleButton.setEnabled(false);
-        //on click change mode 
-        toggleButton.setOnClickListener(new OnClickListener() {
-        	public void onClick(View v){       		
-    		    boolean checked = ((ToggleButton) v).isChecked();    		    
-    		    if (checked) {
-    		        //if toggle is checked change mode to SCOUT 
-    		    	hmiModule.setMode(Mode.SCOUT);
-    		    	Log.e("Toggle","Toggled to Scout");
-    		    } else{
-    		    	// otherwise change mode to PAUSE
-    		    	hmiModule.setMode(Mode.PAUSE); 
-    		    	Log.e("Toggle","Toggled to Pause");
-    		    }
-        	}
-        });
-        
-    */    
+      
+      
+       
         
     }
     
@@ -141,6 +108,11 @@ public class MainActivity extends Activity {
         	
             FragmentPortrait fragmentPortrait = new FragmentPortrait();
             fragmentTransaction.replace(android.R.id.content,fragmentPortrait);
+            try{  setBluetooth(); }
+            catch(Exception e){
+            	Toast.makeText(this, "Bluetooth does not work!!!!!!", Toast.LENGTH_SHORT).show();
+            }   
+
             
         }
         fragmentTransaction.commit();
@@ -148,6 +120,21 @@ public class MainActivity extends Activity {
     
     
     
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+    	int  itemid =item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.testmenu:
+            	TestButton(findViewById(R.id.testmenu));
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
+    //--------------------------------------------------------------------------------------
     
 
 	@Override
@@ -374,35 +361,56 @@ public class MainActivity extends Activity {
 	
 
 	public void TestButton(View view){
-     /*   Map ourView; 
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-	    ourView = new Map(this);
-	    setContentView(ourView);
-	 */ 
-
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Configuration configInfo = getResources().getConfiguration();
-
-        if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
-
-            FragmentLandscape fragmentLandscape = new FragmentLandscape();
-            fragmentTransaction.replace(android.R.id.content,fragmentLandscape);
-            
-        } else {
-        	
-            FragmentPortrait fragmentPortrait = new FragmentPortrait();
-            fragmentTransaction.replace(android.R.id.content,fragmentPortrait);
-            
-        }
-        fragmentTransaction.commit();
-	    
-	    
+		Toast.makeText(this, "UAUAUAUA6516UAUAUA", Toast.LENGTH_SHORT).show();
 	    
 	}
+	
 
-	public void menu(View view){
-		Toast.makeText(this, "UAUAUAUAUAUAUA", Toast.LENGTH_SHORT).show();
+	
+	
+	public void setBluetooth(){
+        
+        //get the BT-Adapter
+        mBtAdapter = BluetoothAdapter.getDefaultAdapter();       
+     
+        //If the adapter is null, then Bluetooth is not supported
+        if (mBtAdapter == null) {
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }       
+        
+        final Button connectButton = (Button) findViewById(R.id.buttonSetupBluetooth);
+        //on click call the BluetoothActivity to choose a listed device
+        connectButton.setOnClickListener(new OnClickListener() {
+        	public void onClick(View v){
+        		Intent serverIntent = new Intent(getApplicationContext(),BluetoothActivity.class);
+				startActivityForResult(serverIntent, REQUEST_SETUP_BT_CONNECTION);
+        	}
+        });
+        
+        //toggle button allows user to set mode of the NXT device
+        final ToggleButton toggleButton = (ToggleButton) findViewById(R.id.toggleMode);
+        //disable button initially 
+        toggleButton.setEnabled(false);
+        //on click change mode 
+        toggleButton.setOnClickListener(new OnClickListener() {
+        	public void onClick(View v){       		
+    		    boolean checked = ((ToggleButton) v).isChecked();    		    
+    		    if (checked) {
+    		        //if toggle is checked change mode to SCOUT 
+    		    	hmiModule.setMode(Mode.SCOUT);
+    		    	Log.e("Toggle","Toggled to Scout");
+    		    } else{
+    		    	// otherwise change mode to PAUSE
+    		    	hmiModule.setMode(Mode.PAUSE); 
+    		    	Log.e("Toggle","Toggled to Pause");
+    		    }
+        	}
+        });
+        
+		
+		
 	}
 	
 	
