@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="horizontal"  >
+
+    <Button
+        android:id="@+id/portraitbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="927dp"
+        android:layout_y="11dp"
+        android:onClick="PortraitButton"
+        android:text="@string/portraitButton" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="-7dp"
+        android:layout_y="-2dp" >
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="85dp"
+        android:layout_x="265dp"
+        android:layout_y="502dp"
+        android:onClick="TestButton"
+        android:text="@string/testButton" />
+
+</AbsoluteLayout>

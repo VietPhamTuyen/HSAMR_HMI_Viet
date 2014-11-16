@@ -362,6 +362,13 @@ public class MainActivity extends Activity {
 
 	public void TestButton(View view){
 		Toast.makeText(this, "UAUAUAUA6516UAUAUA", Toast.LENGTH_SHORT).show();
+		
+		try {               }
+		
+	    catch(Exception e){
+	    	Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+	    	Log.i("ERRORMELDUNG",e.toString());
+	    }  
 	    
 	}
 	
@@ -369,7 +376,7 @@ public class MainActivity extends Activity {
 	
 	
 	public void setBluetooth(){
-        
+		setContentView(R.layout.activity_main);
         //get the BT-Adapter
         mBtAdapter = BluetoothAdapter.getDefaultAdapter();       
      
