@@ -33,6 +33,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
+import android.graphics.Canvas;
 import android.os.Bundle;
 
 
@@ -76,30 +77,46 @@ public class MainActivity extends Activity {
         switch (item.getItemId()) {
             case R.id.testmenu:
             	TestButton(findViewById(R.id.testmenu));
+
+            	break;
+
             	
             case R.id.bluetooth:
             	setBluetooth(findViewById(R.id.bluetooth));
+            	break;
+
             	
             case R.id.toggle:
+            	try{
+            		
+
             	if (item.isChecked()){
             		setToggle(findViewById(R.id.toggle), true);
             		item.setChecked(false);
             	}
+            	
             	else{
             		setToggle(findViewById(R.id.toggle), false);
             		item.setChecked(true);
             	}
+            	}
+    	        catch(Exception e){
+    	        	Toast.makeText(this, "Toggle does not work!!!!!!", Toast.LENGTH_SHORT).show();
+    	        	Log.i("Toggle Error 1",e.getMessage());
+    	        } 
 
+
+            	break;
             case R.id.resetLine:
             	resetLine();
             	
-            	
-            	
-                return true;
+            	break;
 
             default:
                 return super.onOptionsItemSelected(item);
+
         }
+        return true;
     }
     
     //--------------------------------------------------------------------------------------
@@ -328,15 +345,9 @@ public class MainActivity extends Activity {
 	
 
 	public void TestButton(View view){
-		Toast.makeText(this, "UAUAUAUA6516UAUAUA", Toast.LENGTH_SHORT).show();
 		
-		try {               }
-		
-	    catch(Exception e){
-	    	Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-	    	Log.i("ERRORMELDUNG",e.toString());
-	    }  
-	    
+		Toast.makeText( this, "UAUAUAUA6516UAUAUA", Toast.LENGTH_SHORT).show();
+	
 	}
 	
 	
@@ -347,22 +358,28 @@ public class MainActivity extends Activity {
 	     
         //If the adapter is null, then Bluetooth is not supported
         if (mBtAdapter == null) {
-            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }       
-        
-                //on click call the BluetoothActivity to choose a listed device
+        try{ 
+            //on click call the BluetoothActivity to choose a listed device
 
-        		Intent serverIntent = new Intent(getApplicationContext(),BluetoothActivity.class);
-				startActivityForResult(serverIntent, REQUEST_SETUP_BT_CONNECTION);
+    		Intent serverIntent = new Intent(getApplicationContext(),BluetoothActivity.class);
+			startActivityForResult(serverIntent, REQUEST_SETUP_BT_CONNECTION);
+
+        	}
+        catch(Exception e){
+        	Toast.makeText(this, "Bluetooth does not work!!!!!!", Toast.LENGTH_SHORT).show();
+        	Log.i("Bluetooth Error",e.getMessage());
+        } 
 
 		
 	}
 	
 	
 	public void setToggle(View view, boolean check){
-		
+        try{ 
     		    if (check) {
     				Toast.makeText(this, "Toggle set to false", Toast.LENGTH_SHORT).show();
     		        //if toggle is checked change mode to SCOUT 
@@ -374,6 +391,15 @@ public class MainActivity extends Activity {
     		    	hmiModule.setMode(Mode.PAUSE); 
     		    	Log.e("Toggle","Toggled to Pause");
     		    }
+    		    
+    		    
+
+
+    	     }
+    	        catch(Exception e){
+    	        	Toast.makeText(this, "Toggle does not work!!!!!!", Toast.LENGTH_SHORT).show();
+    	        	Log.i("Toggle Error2",e.getMessage());
+    	        } 
 	}
 	
 	
@@ -390,7 +416,7 @@ public class MainActivity extends Activity {
      
         //If the adapter is null, then Bluetooth is not supported
         if (mBtAdapter == null) {
-            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }       
@@ -442,7 +468,12 @@ public class MainActivity extends Activity {
             FragmentLandscape fragmentLandscape = new FragmentLandscape();
             fragmentTransaction.replace(android.R.id.content,fragmentLandscape);
             setContentView(new Map_canvas(this));
-            setContentView(new Car_canvas(this));
+   //         setContentView(new Car_canvas(this));
+            
+            
+            
+            
+            
         } else {
 
             FragmentPortrait fragmentPortrait = new FragmentPortrait();
@@ -476,7 +507,7 @@ public class MainActivity extends Activity {
         if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
             setContentView(new Canvas_reset(this));
         	setContentView(new Map_canvas(this));
-            setContentView(new Car_canvas(this));
+        //    setContentView(new Car_canvas(this));
         }else{
             setContentView(new Canvas_reset(this));
         }
