@@ -29,7 +29,7 @@
 	<string name="ic_action_search">Search</string>
 	<string name="ic_action_name">Name</string>
 	
-	
+	<string name="resetLine">Reset Pfad</string>
 	
 	<string name="bt_connect_hint">Please select a Robot from the list. Make sure it has been paired, is within bluetooth reach and has been set to connect mode.</string>
 </resources>

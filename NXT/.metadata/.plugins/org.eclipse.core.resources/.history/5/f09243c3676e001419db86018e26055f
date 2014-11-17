@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_search"
+          android:icon="@drawable/ic_action_search"
+          android:title="@string/ic_action_search"/>
+    <item android:id="@+id/action_compose"
+          android:icon="@drawable/ic_action_name"
+          android:title="@string/ic_action_name" />
+     <item android:id="@+id/testmenu"
+        android:icon="@drawable/ic_action_name"
+        android:title="@string/testButton"/>
+     
+     
+     <item android:id="@+id/bluetooth"
+        android:icon="@drawable/ic_action_name"
+        android:title="@string/bluetooth_label"/>
+     <item android:id="@+id/toggle"
+        android:icon="@drawable/ic_action_name"
+        android:checkable="true"
+        android:title="@string/togglebutton"/>
+          
+          
+     <group android:id="@+id/group1" android:visible="true" android:menuCategory="container" android:enabled="true"></group>
+    
+     
+    
+
+</menu>

@@ -10,4 +10,6 @@
 <fullyQualifiedTypeName name="android.R.id"/>
 <fullyQualifiedTypeName name="android.view.MenuInflater"/>
 <fullyQualifiedTypeName name="android.view.MenuItem"/>
+<fullyQualifiedTypeName name="de.amr.plt.rcTestapp.R.id"/>
+<fullyQualifiedTypeName name="android.graphics.PorterDuff"/>
 </qualifiedTypeNameHistroy>

@@ -25,6 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import de.amr.plt.rcParkingRobot.AndroidHmiPLT;
+import de.amr.plt.rcTestapp.Canvas.Canvas_reset;
+import de.amr.plt.rcTestapp.Canvas.Car_canvas;
+import de.amr.plt.rcTestapp.Canvas.Map_canvas;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -54,68 +57,15 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Configuration configInfo = getResources().getConfiguration();
-        
-        if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
-
-            FragmentLandscape fragmentLandscape = new FragmentLandscape();
-            fragmentTransaction.replace(android.R.id.content,fragmentLandscape);
-            
-        } else {
-        	
-            FragmentPortrait fragmentPortrait = new FragmentPortrait();
-            fragmentTransaction.replace(android.R.id.content,fragmentPortrait);
-         
-            try{  setBluetooth(); }
-            catch(Exception e){
-            	Toast.makeText(this, "Bluetooth does not work!!!!!!", Toast.LENGTH_SHORT).show();
-            }   		
-     		   
-         
-        }
-        fragmentTransaction.commit();
-
-
-       
-        
-        
-        
-        
+        setFragment();
      //       setContentView(R.layout.activity_main);
-      
-      
-       
-        
     }
     
     
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        // Checks the orientation of the screen
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-
-            FragmentLandscape fragmentLandscape = new FragmentLandscape();
-            fragmentTransaction.replace(android.R.id.content,fragmentLandscape);
-            
-        } else {
-        	
-            FragmentPortrait fragmentPortrait = new FragmentPortrait();
-            fragmentTransaction.replace(android.R.id.content,fragmentPortrait);
-            try{  setBluetooth(); }
-            catch(Exception e){
-            	Toast.makeText(this, "Bluetooth does not work!!!!!!", Toast.LENGTH_SHORT).show();
-            }   
-
-            
-        }
-        fragmentTransaction.commit();
+        setFragment();
     }
     
     
@@ -123,10 +73,28 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
-    	int  itemid =item.getItemId();
         switch (item.getItemId()) {
             case R.id.testmenu:
             	TestButton(findViewById(R.id.testmenu));
+            	
+            case R.id.bluetooth:
+            	setBluetooth(findViewById(R.id.bluetooth));
+            	
+            case R.id.toggle:
+            	if (item.isChecked()){
+            		setToggle(findViewById(R.id.toggle), true);
+            		item.setChecked(false);
+            	}
+            	else{
+            		setToggle(findViewById(R.id.toggle), false);
+            		item.setChecked(true);
+            	}
+
+            case R.id.resetLine:
+            	resetLine();
+            	
+            	
+            	
                 return true;
 
             default:
@@ -140,12 +108,11 @@ public class MainActivity extends Activity {
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		
-
+	
 		    MenuInflater inflater = getMenuInflater();
 		    inflater.inflate(R.menu.activity_main_action, menu);
 		    return super.onCreateOptionsMenu(menu);
-		
+
 
 		
 		//return true;
@@ -372,6 +339,47 @@ public class MainActivity extends Activity {
 	    
 	}
 	
+	
+	public void setBluetooth(View view){
+		Toast.makeText(this, "UAUAUAUA6516UAUAUA", Toast.LENGTH_SHORT).show();
+		
+		mBtAdapter = BluetoothAdapter.getDefaultAdapter();       
+	     
+        //If the adapter is null, then Bluetooth is not supported
+        if (mBtAdapter == null) {
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }       
+        
+                //on click call the BluetoothActivity to choose a listed device
+
+        		Intent serverIntent = new Intent(getApplicationContext(),BluetoothActivity.class);
+				startActivityForResult(serverIntent, REQUEST_SETUP_BT_CONNECTION);
+
+		
+	}
+	
+	
+	public void setToggle(View view, boolean check){
+		
+    		    if (check) {
+    				Toast.makeText(this, "Toggle set to false", Toast.LENGTH_SHORT).show();
+    		        //if toggle is checked change mode to SCOUT 
+    		    	hmiModule.setMode(Mode.SCOUT);
+    		    	Log.e("Toggle","Toggled to Scout");
+    		    } else{
+    				Toast.makeText(this, "Toggle set to true", Toast.LENGTH_SHORT).show();
+    		    	// otherwise change mode to PAUSE
+    		    	hmiModule.setMode(Mode.PAUSE); 
+    		    	Log.e("Toggle","Toggled to Pause");
+    		    }
+	}
+	
+	
+	
+	
+	
 
 	
 	
@@ -419,6 +427,67 @@ public class MainActivity extends Activity {
 		
 		
 	}
+	
+	
+	
+	public void setFragment(){
+		
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Configuration configInfo = getResources().getConfiguration();
+        
+        if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
+
+            FragmentLandscape fragmentLandscape = new FragmentLandscape();
+            fragmentTransaction.replace(android.R.id.content,fragmentLandscape);
+            setContentView(new Map_canvas(this));
+            setContentView(new Car_canvas(this));
+        } else {
+
+            FragmentPortrait fragmentPortrait = new FragmentPortrait();
+            fragmentTransaction.replace(android.R.id.content,fragmentPortrait);
+            setContentView(new Canvas_reset(this));
+         
+            try{ 
+           // 	setBluetooth(); 
+            	}
+            catch(Exception e){
+            	Toast.makeText(this, "Bluetooth does not work!!!!!!", Toast.LENGTH_SHORT).show();
+            }   		
+     		   
+         
+        }
+        fragmentTransaction.commit();
+
+	}
+	
+	
+	
+	
+	
+	
+	public void resetLine(){
+		Configuration configInfo = getResources().getConfiguration();
+
+//		setFragment();
+		
+		
+        if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            setContentView(new Canvas_reset(this));
+        	setContentView(new Map_canvas(this));
+            setContentView(new Car_canvas(this));
+        }else{
+            setContentView(new Canvas_reset(this));
+        }
+
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 	

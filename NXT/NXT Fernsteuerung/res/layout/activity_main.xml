@@ -241,7 +241,7 @@
         android:onClick="onToggleClicked"
         android:text="@string/togglebutton"
         android:textOff="SCOUT"
-        android:textOn="SCOUT" />
+        android:textOn="SCOUT"/>
 
     <Button
         android:id="@+id/landscapebutton"
