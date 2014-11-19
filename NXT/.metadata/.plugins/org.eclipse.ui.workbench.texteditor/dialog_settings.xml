@@ -2,19 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="setup" key="selection"/>
+		<item value="paired" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="paired"/>
+			<item value="title_paired_devices"/>
 			<item value="setup"/>
 			<item value="gone"/>
 			<item value="scout"/>
 			<item value="front"/>
 			<item value="dist"/>
 			<item value="dist front"/>
-			<item value="command"/>
 		</list>
 		<list key="replacehistory">
 		</list>

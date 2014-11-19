@@ -17,4 +17,9 @@
 <fullyQualifiedTypeName name="android.graphics.Path"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="de.amr.plt.rcTestapp.R.layout"/>
+<fullyQualifiedTypeName name="de.amr.plt.rcTestapp.MainActivity"/>
+<fullyQualifiedTypeName name="android.app.ActivityManager"/>
+<fullyQualifiedTypeName name="android.content.ComponentName"/>
+<fullyQualifiedTypeName name="android.graphics.Rect"/>
 </qualifiedTypeNameHistroy>

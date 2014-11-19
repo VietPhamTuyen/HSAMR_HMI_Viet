@@ -1,5 +1,6 @@
 package de.amr.plt.rcTestapp;
 
+import de.amr.plt.rcTestapp.Canvas.Map_canvas;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,7 +21,7 @@ public class FragmentLandscape extends Fragment{
 //        return _view;
 		
 		
-		
+
 		
 		
 		
