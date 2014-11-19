@@ -1,7 +1,5 @@
 package de.amr.plt.rcTestapp.Canvas;
 
-import java.util.ArrayList;
-
 import de.amr.plt.rcTestapp.MainActivity;
 import de.amr.plt.rcTestapp.R;
 import de.amr.plt.rcTestapp.R.drawable;
@@ -29,9 +27,8 @@ public class Map_canvas extends View{
     
 	private int current_posx;
 	private int current_posy;
-
-	public static ArrayList<Integer> position_listx= new ArrayList<Integer>();
-	public static ArrayList<Integer> position_listy= new ArrayList<Integer>();
+	private int last_posx;
+	private int last_posy;
 	
     private MainActivity main;
     
@@ -55,11 +52,6 @@ public class Map_canvas extends View{
 		// TODO Auto-generated method stub
 		super.onDraw(canvas);
 		
-		position_listx = main.get_pos_list(true);
-		position_listy = main.get_pos_list(false);
-		current_posx = main.current_pos(true) ;
-	    current_posy = main.current_pos(false) ;
-		
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.BLACK);
         Rect dest = new Rect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -69,22 +61,25 @@ public class Map_canvas extends View{
 //		canvas.drawBitmap(map,0, 0, null);
 		canvas.drawBitmap(map, null, dest, null);
 		
-			
-			for(int zaehler = 1; zaehler == position_listx.size(); zaehler++){
-				
-				if(!(position_listx.get(zaehler+1)==null) && !(position_listx.get(zaehler+1)==null)){
-					
-					canvas.drawLine(position_listx.get(zaehler), position_listy.get(zaehler), 
-							position_listx.get(zaehler +1), position_listy.get(zaehler+1), paint);
-				}
-			}
-			 
-			 
-			 
-			 canvas.drawBitmap(car,current_posx, current_posy, null);
-			
+
+		
 		
 
+		current_posx = main.current_pos(true) ;
+	    current_posy = main.current_pos(false) ;
+         
+
+//	    canvas.drawLine(last_posx, last_posy, current_posx, current_posy, paint);
+        canvas.drawLine(0, 0, current_posx, current_posy, paint);
+		
+
+		 Log.i("canvas=", String.valueOf(canvas.getWidth()));
+
+		
+
+		
+	
+	canvas.drawBitmap(car,current_posx, current_posy, null);
 	}
 	
 }

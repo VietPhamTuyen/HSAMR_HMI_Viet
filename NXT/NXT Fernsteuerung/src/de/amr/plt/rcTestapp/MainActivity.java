@@ -576,6 +576,13 @@ public class MainActivity extends Activity {
 	}
 	
 	
+	public ArrayList<Integer> get_pos_list(boolean list_x){
+		if(list_x == true) return position_listx ;
+		else return position_listy;
+		
+	}
+	
+	
 	
 	
 }
