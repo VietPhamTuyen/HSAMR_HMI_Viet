@@ -63,23 +63,35 @@ public class MainActivity extends Activity {
 	//request code 
 	final int REQUEST_SETUP_BT_CONNECTION = 1;		
 	
+	boolean orientation = false; //true =portrait, false = landscape
+	
+	
 					
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+		Log.i("info","onCreate");
         setFragment();
         
      //       setContentView(R.layout.activity_main);
     }
     
-    
+ 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        try{
         super.onConfigurationChanged(newConfig);
-        setFragment();
+    	Log.i("info","onConfigChange");
+
+          setFragment();
+        }catch (Exception e){
+        	Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+        	Log.i("Fragment",e.toString());
+        }
+
     }
     
-    
+
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -90,6 +102,9 @@ public class MainActivity extends Activity {
 
             	break;
 
+            case R.id.dc_bluetooth:
+            	terminateBluetoothConnection();
+            	break;
             	
             case R.id.bluetooth:
             	setBluetooth(findViewById(R.id.bluetooth));
@@ -154,6 +169,7 @@ public class MainActivity extends Activity {
     @Override
 	public void onDestroy(){
 		super.onDestroy();
+		Log.i("info","onDestroy");
     	if(mBtAdapter != null){
     		//release resources  
     		mBtAdapter.cancelDiscovery();
@@ -209,6 +225,7 @@ public class MainActivity extends Activity {
 	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
 	 */
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
+		Log.i("info","onActivityResult");
 		switch(resultCode){
 		
 		//user pressed back button on bluetooth activity, so return to initial screen 
@@ -247,6 +264,7 @@ public class MainActivity extends Activity {
 	 * @param data
 	 */
 	private void establishBluetoothConnection(Intent data){
+		Log.i("info","establish BluetoothConnection");
 		//get instance of the chosen bluetooth device
 		String address = data.getExtras().getString(BluetoothActivity.EXTRA_DEVICE_ADDRESS);	
 		btDevice = mBtAdapter.getRemoteDevice(address);		
@@ -273,13 +291,22 @@ public class MainActivity extends Activity {
      */
 	private void displayDataNXT(){
 		
+		
 		new Timer().schedule(new TimerTask() {
 			
 			@Override
             public void run() {
-				
+				while(orientation == true){
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+//					Log.i("info","Display DataNXT");
                 runOnUiThread(new Runnable() {
                     public void run() {
+                    	try{
                     	if(hmiModule != null){
                     		//display x value
                         	final TextView fld_xPos = (TextView) findViewById(R.id.textViewValueX);
@@ -323,8 +350,16 @@ public class MainActivity extends Activity {
                     			restartActivity();
                     		}
                     	}
+                		}catch(Exception e){
+//                			Log.i("info","getData cant show data");
+                		}
+                    		
+                    	
+                    	
+                    	
                     }
                 });
+                }
             }
         }, 200, 100);
 				
@@ -334,6 +369,7 @@ public class MainActivity extends Activity {
 	 * Terminate the bluetooth connection to NXT
 	 */
 	private void terminateBluetoothConnection(){
+		Log.i("info","terminate Bluetooth");
 		Toast.makeText(this, "Bluetooth connection was terminated!", Toast.LENGTH_LONG).show();
 		hmiModule.setMode(Mode.DISCONNECT);
 		hmiModule.disconnect();
@@ -357,7 +393,9 @@ public class MainActivity extends Activity {
 	
 	
 	//--NEW--------------------------------------------------------------------------------
-	
+	/**
+     * switch from portrait to Landscape mode
+     */
 	public void LandscapeButton(View view){
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
@@ -370,6 +408,9 @@ public class MainActivity extends Activity {
 		//setContentView(R.layout.landscapemode);
 	}
 	
+	/**
+     * switch from Landscape to portrait mode
+     */
 	public void PortraitButton(View view){
 		 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	//		setContentView(R.layout.activity_main);
@@ -377,7 +418,9 @@ public class MainActivity extends Activity {
 	
 	
 	
-
+	/**
+     * testing stuff
+     */
 	public void TestButton(View view){
 		
 		Toast.makeText( this, "UAUAUAUA6516UAUAUA", Toast.LENGTH_SHORT).show();
@@ -386,10 +429,41 @@ public class MainActivity extends Activity {
 		Log.i("zahl",String.valueOf(zahl));
 		Log.i("zahl",String.valueOf((int) zahl));
 		
+		position_listx.add(0);
+		position_listy.add(0);
+		
+		position_listx.add(100);
+		position_listy.add(100);
+		
+		position_listx.add(500);
+		position_listy.add(150);
+		
+		position_listx.add(600);
+		position_listy.add(100);
+		
+		position_listx.add(700);
+		position_listy.add(245);
+		
+		position_listx.add(800);
+		position_listy.add(296);
+		
+		int zahlwn = position_listx.get(2);
+		Configuration configInfo = getResources().getConfiguration();
+		
+		Toast.makeText(this,String.valueOf(zahlwn) , Toast.LENGTH_SHORT).show();
+		if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
+
+        	setContentView(new Map_canvas(this));
+        }else{
+//            setContentView(new Canvas_reset(this));
+
+        }
 	
 	}
 	
-	
+	/**
+     * create bluetooth connection 
+     */
 	public void setBluetooth(View view){
 //		Toast.makeText(this, "UAUAUAUA6516UAUAUA", Toast.LENGTH_SHORT).show();
 		
@@ -416,7 +490,9 @@ public class MainActivity extends Activity {
 		
 	}
 	
-	
+	/**
+     * 
+     */
 	public boolean setToggle(View view, boolean check){
         try{ 
     		    if (check) {
@@ -447,7 +523,9 @@ public class MainActivity extends Activity {
 	
 
 	
-	
+	/**
+     * set bluetooth and toggle (old)
+     */
 	public void setBluetooth(){
 		setContentView(R.layout.activity_main);
         //get the BT-Adapter
@@ -464,9 +542,16 @@ public class MainActivity extends Activity {
         //on click call the BluetoothActivity to choose a listed device
         connectButton.setOnClickListener(new OnClickListener() {
         	public void onClick(View v){
-        		Intent serverIntent = new Intent(getApplicationContext(),BluetoothActivity.class);
-				startActivityForResult(serverIntent, REQUEST_SETUP_BT_CONNECTION);
-				Log.i("setonclicklistener","bluetooth button aktiviert");
+        		try{
+            		Intent serverIntent = new Intent(getApplicationContext(),BluetoothActivity.class);
+    				startActivityForResult(serverIntent, REQUEST_SETUP_BT_CONNECTION);
+    				Log.i("setonclicklistener","bluetooth button aktiviert");
+        		} catch(Exception e)
+        		{
+ //       			Toast.makeText(this, "BLUETOOTH ERRORORORORORORROROR", Toast.LENGTH_SHORT).show();
+        			Log.e("Bluetooth","Connect error");
+        		}
+
         	}
         });
         
@@ -504,83 +589,198 @@ public class MainActivity extends Activity {
 	}
 	
 	
-	
+	/**
+     * create a fragment for landscape/ portrait mode -> switch on configuration change
+     */
 	public void setFragment(){
+		Log.i("info","setFrag");
 		
+		try
+		{
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Configuration configInfo = getResources().getConfiguration();
-        
+		Log.i("setFrag error","2");
         if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
-
+        		orientation =false;
+        		Log.i("setFrag","orientation = false");
+        		
+    		Log.i("setFrag","1");
+        	getData();
+    		Log.i("setFrag","2");
             FragmentLandscape fragmentLandscape = new FragmentLandscape();
             fragmentTransaction.replace(android.R.id.content,fragmentLandscape);
+
+            
+            
   //          map = new Map_canvas(this);
             
             setContentView(new Map_canvas(this));
    //         setContentView(new Car_canvas(this));
             
-            
-            
-            
+
             
         } else {
-
+    		orientation =true;
+    		Log.i("setFrag","orientation = true");
+        	displayDataNXT();
             FragmentPortrait fragmentPortrait = new FragmentPortrait();
             fragmentTransaction.replace(android.R.id.content,fragmentPortrait);
             setContentView(new Canvas_reset(this));
          
-            try{ 
-//            	setBluetooth(); 
-            	}
-            catch(Exception e){
-            	Toast.makeText(this, "setBluetooth failed", Toast.LENGTH_SHORT).show();
-            }   		
-     		   
+   
          
         }
 
         	fragmentTransaction.commit();
 
-
+    	}catch(Exception e){
+    		Log.i("setFrag error",e.toString());
+    	}
+		Log.i("setFrag","last");
 	}
 	
 	
 	
 	
 	
-	
+	/**
+     * reset line on map
+     */
 	public void resetLine(){
 		Configuration configInfo = getResources().getConfiguration();
+		
+		position_listx.clear();
+		position_listy.clear();
 
-//		setFragment();
 		map = new Map_canvas(this);
 		if(configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
 
- //           setContentView(new Canvas_reset(this));
         	setContentView(map);
-        //    setContentView(new Car_canvas(this));
         }else{
-//            setContentView(new Canvas_reset(this));
 
         }
 
-		
 	}
 	
-	
+	/**
+     * return x or y position
+     * true ->x
+     * false ->y
+     */
 	public int current_pos(boolean x){ // true = x, false = y
+//		Log.i("info","current_pos");
 		if(x== true) return (int) current_posx;
 		else return (int) current_posy;	
 	}
 	
-	
+	/**
+     * return x or y position list
+     * true ->x
+     * false ->y
+     */
 	public ArrayList<Integer> get_pos_list(boolean list_x){
+//		Log.i("info","get_pos_list");
 		if(list_x == true) return position_listx ;
 		else return position_listy;
 		
 	}
+	
+	
+	
+	/**
+	 * get position, angle ... in landscape mode for canvas
+	 */
+	private void getData(){
+
+		final Map_canvas map_c = new Map_canvas(this);
+		try{
+			
+			Log.i("info","getData1");
+		
+		new Timer().schedule(new TimerTask() {
+			
+			@Override
+            public void run() {
+				while(orientation == false){
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+//					Log.i("info","getData2");
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                    	if(hmiModule != null){
+                    		try{
+
+                        		//display x value                        	
+                        		final TextView fld_xPos = (TextView) findViewById(R.id.textViewValueX);
+                        			current_posx = hmiModule.getPosition().getX();
+                        			position_listx.add((int) current_posx);
+                        		fld_xPos.setText(String.valueOf(current_posx+" cm"));
+                        		//display y value
+                        		final TextView fld_yPos = (TextView) findViewById(R.id.textViewValueY);
+                        			current_posy = hmiModule.getPosition().getY();
+                        			position_listy.add((int) current_posy);
+                    			fld_yPos.setText(String.valueOf(current_posy+" cm"));
+                    			//display angle value
+                    			final TextView fld_angle = (TextView) findViewById(R.id.TextViewValueAngle); 
+                    			String.valueOf(hmiModule.getPosition().getAngle());
+                    			//display status of NXT
+                    			final TextView fld_status = (TextView) findViewById(R.id.textViewValueStatus);
+                    		    String.valueOf(hmiModule.getCurrentStatus());
+                    			//display distance front
+                    			final TextView fld_distance_front = (TextView) findViewById(R.id.textViewValueDistanceFront);
+                    			String.valueOf(hmiModule.getPosition().getDistanceFront());
+                    			//display distance back
+                    			final TextView fld_distance_back = (TextView) findViewById(R.id.textViewValueDistanceBack);
+                    			String.valueOf(hmiModule.getPosition().getDistanceBack());
+                    			//display distance right	
+                    			final TextView fld_distance_front_side = (TextView) findViewById(R.id.textViewValueDistanceFrontSide);
+                    			String.valueOf(hmiModule.getPosition().getDistanceFrontSide());
+                    			//display distance left
+                    			final TextView fld_distance_back_side = (TextView) findViewById(R.id.textViewValueDistanceBackSide);
+                    			String.valueOf(hmiModule.getPosition().getDistanceBackSide());
+                    			//display bluetooth connection status
+                    			final TextView fld_bluetooth = (TextView) findViewById(R.id.textViewValueBluetooth);
+                    			//display connection status
+                    			if(hmiModule.isConnected()){
+                    				fld_bluetooth.setText("connected");
+                    			} else {
+                    				fld_bluetooth.setText("not connected");
+                    			}
+                        		//restart activity when disconnecting
+                        		if(hmiModule.getCurrentStatus()==CurrentStatus.EXIT){
+                        			terminateBluetoothConnection();
+                        			restartActivity();
+                        		}
+                    		}catch(Exception e){
+//                    			Log.i("info","getData cant show data");
+                    		}
+                    		
+                    		setContentView(map_c);
+//                    		Log.i("info","getData end");
+                           
+                    		
+                    	}
+                    }
+                });
+				}
+            }
+        }, 200, 100);
+		
+				
+	}catch(Exception e){
+
+    	Log.i("getDataError",e.toString());
+		
+	}
+	}
+	
+	
 	
 	
 	

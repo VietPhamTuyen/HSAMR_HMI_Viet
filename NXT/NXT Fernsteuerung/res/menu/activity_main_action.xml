@@ -17,6 +17,11 @@
      <item android:id="@+id/resetLine"
         android:icon="@drawable/ic_action_name"
         android:title="@string/resetLine"/>
+     
+     
+          <item android:id="@+id/dc_bluetooth"
+        android:icon="@drawable/ic_action_name"
+        android:title="@string/dc_bluetooth"/>
           
           
      <group android:id="@+id/group1" 

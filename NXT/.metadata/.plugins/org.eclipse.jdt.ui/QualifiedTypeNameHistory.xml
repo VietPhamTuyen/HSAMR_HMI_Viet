@@ -10,7 +10,6 @@
 <fullyQualifiedTypeName name="android.R.id"/>
 <fullyQualifiedTypeName name="android.view.MenuInflater"/>
 <fullyQualifiedTypeName name="android.view.MenuItem"/>
-<fullyQualifiedTypeName name="de.amr.plt.rcTestapp.R.id"/>
 <fullyQualifiedTypeName name="android.graphics.PorterDuff"/>
 <fullyQualifiedTypeName name="android.graphics.Canvas"/>
 <fullyQualifiedTypeName name="android.graphics.Matrix"/>
@@ -22,4 +21,6 @@
 <fullyQualifiedTypeName name="android.app.ActivityManager"/>
 <fullyQualifiedTypeName name="android.content.ComponentName"/>
 <fullyQualifiedTypeName name="android.graphics.Rect"/>
+<fullyQualifiedTypeName name="de.amr.plt.rcTestapp.R.id"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
 </qualifiedTypeNameHistroy>

@@ -26,6 +26,8 @@
 	<string name="portraitButton">Portrait</string>
 	<string name="testButton">Test</string>
 	
+	<string name="dc_bluetooth">Disconnect</string>
+	
 	<string name="ic_action_search">Search</string>
 	<string name="ic_action_name">Name</string>
 	

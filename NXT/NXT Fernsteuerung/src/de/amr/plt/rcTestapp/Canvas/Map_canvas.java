@@ -16,6 +16,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -50,6 +51,14 @@ public class Map_canvas extends View{
 		  bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_name);
 	   	}
 
+	
+	
+
+	
+	
+	
+	
+	
 	@Override
 	protected void onDraw(Canvas canvas) {
 		// TODO Auto-generated method stub
@@ -62,6 +71,7 @@ public class Map_canvas extends View{
 		
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.BLACK);
+        paint.setARGB(255, 255, 255, 0);
         Rect dest = new Rect(0, 0, canvas.getWidth(), canvas.getHeight());
         
 //		canvas.drawColor(Color.WHITE);
@@ -69,7 +79,31 @@ public class Map_canvas extends View{
 //		canvas.drawBitmap(map,0, 0, null);
 		canvas.drawBitmap(map, null, dest, null);
 		
+		
+		
+		
+	
+		
+		int zaehler=0;	
+		
+		while(zaehler < position_listx.size()){
+			try{
+				canvas.drawLine(position_listx.get(zaehler), position_listy.get(zaehler), 
+						position_listx.get(zaehler +1), position_listy.get(zaehler+1), paint);
+				
+			}catch(Exception e){
+				
+			}
+			zaehler++;
 			
+		}
+		
+		
+		
+			
+			
+			
+/*		
 			for(int zaehler = 1; zaehler == position_listx.size(); zaehler++){
 				
 				if(!(position_listx.get(zaehler+1)==null) && !(position_listx.get(zaehler+1)==null)){
@@ -79,12 +113,22 @@ public class Map_canvas extends View{
 				}
 			}
 			 
-			 
+*/			
+
+			
+			
+			
+			
+			
 			 
 			 canvas.drawBitmap(car,current_posx, current_posy, null);
 			
 		
 
 	}
+	
+ 
+
+	
 	
 }

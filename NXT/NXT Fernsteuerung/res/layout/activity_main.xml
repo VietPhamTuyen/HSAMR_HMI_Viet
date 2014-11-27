@@ -240,7 +240,7 @@
         android:layout_marginLeft="24dp"
         android:layout_toRightOf="@+id/buttonSetupBluetooth"
         android:clickable="true"
-        android:onClick="onToggleClicked"
+        android:onClick="setToggle"
         android:text="@string/togglebutton"
         android:textOff="SCOUT"
         android:textOn="SCOUT" />
