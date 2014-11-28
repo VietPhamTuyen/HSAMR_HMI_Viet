@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import de.amr.plt.rcParkingRobot.AndroidHmiPLT;
+import de.amr.plt.rcTestapp.Canvas.Car_canvas;
 import de.amr.plt.rcTestapp.Canvas.Map_canvas;
 
 import android.app.Activity;
@@ -95,7 +97,7 @@ public class MainActivity extends Activity {
 
 			break;
 
-		case R.id.dc_bluetooth:
+		case R.id.dc_bluetooth: // disconnect
 			terminateBluetoothConnection();
 			break;
 
@@ -305,7 +307,6 @@ public class MainActivity extends Activity {
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					// Log.i("info","Display DataNXT");
@@ -317,14 +318,18 @@ public class MainActivity extends Activity {
 									final TextView fld_xPos = (TextView) findViewById(R.id.textViewValueX);
 									current_posx = hmiModule.getPosition()
 											.getX();
-									position_listx.add((int) current_posx);
+									
+									
+									save_pos(current_posx, true);
+									
+									
 									fld_xPos.setText(String
 											.valueOf(current_posx + " cm"));
 									// display y value
 									final TextView fld_yPos = (TextView) findViewById(R.id.textViewValueY);
 									current_posy = hmiModule.getPosition()
 											.getY();
-									position_listy.add((int) current_posy);
+									save_pos(current_posy, true);
 									fld_yPos.setText(String
 											.valueOf(current_posy + " cm"));
 									// display angle value
@@ -373,7 +378,7 @@ public class MainActivity extends Activity {
 										restartActivity();
 									}
 
-									// setContentView(map);
+									// TODO create_map(true);
 
 								}
 							} catch (Exception e) {
@@ -449,10 +454,6 @@ public class MainActivity extends Activity {
 
 		Toast.makeText(this, "UAUAUAUA6516UAUAUA", Toast.LENGTH_SHORT).show();
 
-		float zahl = (float) 6.574;
-		Log.i("zahl", String.valueOf(zahl));
-		Log.i("zahl", String.valueOf((int) zahl));
-
 		position_listx.add(0);
 		position_listy.add(0);
 
@@ -471,13 +472,12 @@ public class MainActivity extends Activity {
 		position_listx.add(800);
 		position_listy.add(296);
 
-		int zahlwn = position_listx.get(2);
 		Configuration configInfo = getResources().getConfiguration();
 
-		Toast.makeText(this, String.valueOf(zahlwn), Toast.LENGTH_SHORT).show();
 		if (configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE) {
 			map = new Map_canvas(this, 0);
 			setContentView(map);
+
 		} else {
 			// setContentView(new Canvas_reset(this));
 
@@ -545,7 +545,7 @@ public class MainActivity extends Activity {
 	/**
 	 * set bluetooth and toggle (old)
 	 */
-	public void setBluetooth() {
+	public void setBluetoothOld() {
 		setContentView(R.layout.activity_main);
 		// get the BT-Adapter
 		mBtAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -625,17 +625,12 @@ public class MainActivity extends Activity {
 			if (configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE) {
 				orientation = false;
 				Log.i("setFrag", "orientation = false");
-
 				getData();
-				Log.i("setFrag", "2");
 				FragmentLandscape fragmentLandscape = new FragmentLandscape();
 				fragmentTransaction.replace(android.R.id.content,
 						fragmentLandscape);
-
-				// map = new Map_canvas(this);
 				map = new Map_canvas(this, 0);
 				setContentView(map);
-				// setContentView(new Car_canvas(this));
 
 			} else {
 				orientation = true;
@@ -644,8 +639,8 @@ public class MainActivity extends Activity {
 				FragmentPortrait fragmentPortrait = new FragmentPortrait();
 				fragmentTransaction.replace(android.R.id.content,
 						fragmentPortrait);
-				map = new Map_canvas(this, 1);
-				setContentView(map);
+				// map = new Map_canvas(this, 1);
+				// TODO setContentView(map);
 
 			}
 
@@ -662,6 +657,8 @@ public class MainActivity extends Activity {
 	 */
 	public void resetLine() {
 		Configuration configInfo = getResources().getConfiguration();
+		current_posx = 0;
+		current_posy = 0;
 
 		position_listx.clear();
 		position_listy.clear();
@@ -671,6 +668,12 @@ public class MainActivity extends Activity {
 			map = new Map_canvas(this, 0);
 			setContentView(map);
 		} else {
+
+			// TODO 1 fehlerhaftes verhalten
+			// map = new Map_canvas(this, 1);
+			// TODO setContentView(map);
+
+			// setContentView(new Car_canvas(this));
 
 		}
 
@@ -712,13 +715,16 @@ public class MainActivity extends Activity {
 
 			new Timer().schedule(new TimerTask() {
 
+				// public Map_canvas map;
+
 				@Override
 				public void run() {
+					Log.i("info", "getData 2");
 					while (orientation == false) {
+						Log.i("info", "getData 3");
 						try {
-							Thread.sleep(1000);
+							Thread.sleep(1500);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						// Log.i("info","getData2");
@@ -731,14 +737,18 @@ public class MainActivity extends Activity {
 										final TextView fld_xPos = (TextView) findViewById(R.id.textViewValueX);
 										current_posx = hmiModule.getPosition()
 												.getX();
-										position_listx.add((int) current_posx);
+
+										save_pos(current_posx, true);
+
 										fld_xPos.setText(String
 												.valueOf(current_posx + " cm"));
 										// display y value
 										final TextView fld_yPos = (TextView) findViewById(R.id.textViewValueY);
 										current_posy = hmiModule.getPosition()
 												.getY();
-										position_listy.add((int) current_posy);
+
+										save_pos(current_posy, false);
+
 										fld_yPos.setText(String
 												.valueOf(current_posy + " cm"));
 										// display angle value
@@ -782,13 +792,17 @@ public class MainActivity extends Activity {
 									} catch (Exception e) {
 										// Log.i("info","error getData cant show data");
 									}
-
-									// setContentView(map);
-									// Log.i("info","getData end");
+									try {
+										create_map(false);
+									} catch (Exception e) {
+										Log.i("getData", "Error create canvas");
+									}
+									Log.i("info", "getData end");
 
 								}
 							}
 						});
+
 					}
 				}
 			}, 200, 100);
@@ -798,6 +812,40 @@ public class MainActivity extends Activity {
 			Log.i("getData", "Error " + e.toString());
 
 		}
+	}
+
+	public void create_map(boolean ori) {
+		if (orientation == false && ori == false) { // landscape
+			map = new Map_canvas(this, 0);
+			setContentView(map);
+		} else {
+			// TODO map = new Map_canvas(this, 1);
+		}
+
+	}
+
+	public void error_ausgabe(String tag, String text) {
+		Log.i("tag", "Error " + text);
+	}
+
+	public static boolean getOrientation() {
+		return orientation;
+	}
+
+	public void save_pos(float pos, boolean x) {
+
+		if (x == true) {
+			if (pos != position_listx.get(position_listx.size())) {
+				position_listx.add((int) pos);
+			}
+		}
+
+		else if (x != true) {
+			if (pos != position_listy.get(position_listy.size())) {
+				position_listy.add((int) pos);
+			}
+		}
+
 	}
 
 }

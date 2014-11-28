@@ -20,7 +20,7 @@ public class Canvas_reset extends View{
 		super.onDraw(canvas);
 //		canvas.drawColor(Color.WHITE);
 
-		canvas.drawColor(Color.TRANSPARENT);
+//		canvas.drawColor(Color.TRANSPARENT);
 //		canvas.drawColor(Color.WHITE);
 		
 		

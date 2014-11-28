@@ -10,7 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 
-public class Car_canvas extends View{
+public class Car_canvas extends View {
 
 	Paint myPaint;
 	Bitmap car;
@@ -18,9 +18,10 @@ public class Car_canvas extends View{
 	int x_Achse;
 	int y_Achse;
 	int grad;
-	
+
 	public Car_canvas(Context context) {
 		super(context);
+		this.setBackgroundColor(0);
 		// TODO Auto-generated constructor stub
 		car = BitmapFactory.decodeResource(getResources(), R.drawable.car);
 
@@ -30,11 +31,7 @@ public class Car_canvas extends View{
 	protected void onDraw(Canvas canvas) {
 		// TODO Auto-generated method stub
 		super.onDraw(canvas);
-		canvas.drawBitmap(car,canvas.getWidth()/2, canvas.getHeight()/2, null);
-		
-		
-		}
+//		canvas.drawBitmap(car,2, 2, null);
 
-	
-	
+		}
 }
