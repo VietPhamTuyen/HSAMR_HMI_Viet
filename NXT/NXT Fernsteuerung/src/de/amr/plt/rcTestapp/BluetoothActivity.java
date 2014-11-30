@@ -100,7 +100,7 @@ public class BluetoothActivity extends Activity {
 		//bluetooth has to be enabled
 		if(mBtAdapter.isEnabled()){
 			//there are no paired devices ...
-			if(pairedDevices.size() == 0){
+			if                     
 	    		//inform user to pair devices manually
 	    		Toast.makeText(this, "No paired devices detected. Please pair devices!", Toast.LENGTH_SHORT).show();
 	    		returnToPriviousActivityWithoutDevice();

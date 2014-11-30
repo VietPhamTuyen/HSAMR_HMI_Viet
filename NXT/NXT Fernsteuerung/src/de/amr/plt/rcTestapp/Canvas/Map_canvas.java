@@ -25,6 +25,27 @@ import android.widget.Toast;
 
 public class Map_canvas extends View {
 
+	//TODO
+	/*
+	 * 1024 x 500 px (ohne rot)
+	 * 245 x 125 cm
+	 * 1cm = ( (1024/245) x 4 )px
+	 * 
+	 * unterer rand = 100 px
+	 * 
+	 * 
+	 * -------------------------------------------
+	 * 87 pixel unten nicht verfügbar
+	 * grau außen 5 cm
+	 * weiß insgesammt 20
+	 * weiß ein teil 8
+	 * ohne lücke 210*90
+	 * 
+	 * 
+	 * auto = 60*100
+	 */
+	
+	
 	private Bitmap bmp;
 	private Paint myPaint;
 	private Bitmap map;
@@ -49,7 +70,8 @@ public class Map_canvas extends View {
 		this.orientation = orientation;
 
 		map = BitmapFactory.decodeResource(getResources(),
-				R.drawable.map_hor_v1_2);
+				R.drawable.strecke);
+//				R.drawable.map_hor_v1_2);
 		car = BitmapFactory.decodeResource(getResources(), R.drawable.car);
 
 		bmp = BitmapFactory.decodeResource(getResources(),

@@ -18,6 +18,7 @@ public final class R {
         public static final int kreis=0x7f020004;
         public static final int map_hor_v1_2=0x7f020005;
         public static final int reset=0x7f020006;
+        public static final int strecke=0x7f020007;
     }
     public static final class id {
         public static final int RelativeLayout1=0x7f070002;
