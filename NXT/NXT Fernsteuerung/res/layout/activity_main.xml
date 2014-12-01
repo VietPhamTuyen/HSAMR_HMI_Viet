@@ -15,7 +15,8 @@
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="30dp"
         android:clickable="true"
-        android:text="@string/setupBluetooth" />
+        android:text="@string/setupBluetooth"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/textViewLabelBluetooth"
@@ -243,7 +244,8 @@
         android:onClick="setToggle"
         android:text="@string/togglebutton"
         android:textOff="SCOUT"
-        android:textOn="SCOUT" />
+        android:textOn="SCOUT"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/landscapebutton"
@@ -252,7 +254,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:onClick="LandscapeButton"
-        android:text="@string/landscapeButton" />
+        android:text="@string/landscapeButton"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/button1"
@@ -262,6 +265,16 @@
         android:layout_marginRight="85dp"
         android:layout_toLeftOf="@+id/landscapebutton"
         android:onClick="TestButton"
-        android:text="@string/testButton" />
+        android:text="@string/testButton"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttonSetupBluetooth"
+        android:layout_alignLeft="@+id/buttonSetupBluetooth"
+        android:text="@string/data"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

@@ -21,6 +21,10 @@
         android:id="@+id/dc_bluetooth"
         android:icon="@drawable/ic_action_name"
         android:title="@string/dc_bluetooth"/>
+    <item
+        android:id="@+id/restart"
+        android:icon="@drawable/ic_action_name"
+        android:title="@string/restart"/>
 
     <group
         android:id="@+id/group1"

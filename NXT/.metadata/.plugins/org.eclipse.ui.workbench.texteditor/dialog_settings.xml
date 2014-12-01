@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="detec" key="selection"/>
+		<item value="Map_canvas(this" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="Map_canvas(this"/>
 			<item value="detec"/>
 			<item value="bt_connect_hint"/>
 			<item value="car:canvas"/>
@@ -15,7 +16,6 @@
 			<item value="new"/>
 			<item value="canvas"/>
 			<item value="hmi"/>
-			<item value="reset_c"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

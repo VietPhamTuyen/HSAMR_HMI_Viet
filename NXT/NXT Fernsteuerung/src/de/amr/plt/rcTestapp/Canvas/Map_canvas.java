@@ -51,6 +51,8 @@ public class Map_canvas extends View {
 	private Bitmap map;
 	private Bitmap car;
 	private Bitmap reset;
+	private Bitmap connect;
+	private Bitmap noconnect;
 	private static int zaehler = 0;
 
 	private int current_posx;
@@ -63,11 +65,14 @@ public class Map_canvas extends View {
 
 	private static int orientation; // 0 = landscape, 1 = portrait, 2 = both
 	public boolean b_orientation;
+	
+	private static boolean connection;
 
 	public Map_canvas(Context context, int orientation) {
 		super(context);
 		main = new MainActivity();
 		this.orientation = orientation;
+		connection = false;
 
 		map = BitmapFactory.decodeResource(getResources(),
 				R.drawable.strecke);
@@ -77,6 +82,9 @@ public class Map_canvas extends View {
 		bmp = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ic_action_name);
 		reset = BitmapFactory.decodeResource(getResources(), R.drawable.reset);
+		
+		connect = BitmapFactory.decodeResource(getResources(), R.drawable.connection);
+		noconnect = BitmapFactory.decodeResource(getResources(), R.drawable.noconnection);
 	}
 
 	public void destroy() {
@@ -156,8 +164,15 @@ public class Map_canvas extends View {
 			 * position_listy.get(zaehler+1), paint); } }
 			 */
 
-			canvas.drawBitmap(car, current_posx, current_posy, null);
-
+			canvas.drawBitmap(car, current_posx-21, current_posy-30, null);
+			connection = main.getConnection();
+			if (connection == true){
+				canvas.drawBitmap(connect,924,0 , null);
+			}else {
+				canvas.drawBitmap(noconnect,924,0 , null);
+			}
+			
+			
 		} else if (orientation == 1) {
 
 		}

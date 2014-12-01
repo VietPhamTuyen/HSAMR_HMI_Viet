@@ -12,36 +12,41 @@ public final class R {
     }
     public static final class drawable {
         public static final int car=0x7f020000;
-        public static final int ic_action_name=0x7f020001;
-        public static final int ic_action_search=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int kreis=0x7f020004;
-        public static final int map_hor_v1_2=0x7f020005;
-        public static final int reset=0x7f020006;
-        public static final int strecke=0x7f020007;
+        public static final int connection=0x7f020001;
+        public static final int ic_action_name=0x7f020002;
+        public static final int ic_action_search=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int ic_launcher_orig=0x7f020005;
+        public static final int kreis=0x7f020006;
+        public static final int map_hor_v1_2=0x7f020007;
+        public static final int noconnection=0x7f020008;
+        public static final int reset=0x7f020009;
+        public static final int strecke=0x7f02000a;
     }
     public static final class id {
         public static final int RelativeLayout1=0x7f070002;
         public static final int TextViewLableAngle=0x7f07000c;
         public static final int TextViewValueAngle=0x7f07000d;
-        public static final int action_compose=0x7f070025;
-        public static final int action_search=0x7f070026;
-        public static final int bluetooth=0x7f070020;
+        public static final int action_compose=0x7f070027;
+        public static final int action_search=0x7f070028;
+        public static final int bluetooth=0x7f070021;
         public static final int bt_connect_hint=0x7f070000;
         public static final int button1=0x7f070018;
         public static final int buttonSetupBluetooth=0x7f070003;
-        public static final int dc_bluetooth=0x7f070023;
-        public static final int group1=0x7f070024;
-        public static final int imageView1=0x7f07001d;
-        public static final int landscape_fragment=0x7f070019;
-        public static final int landscape_fragmentl=0x7f07001b;
+        public static final int dc_bluetooth=0x7f070024;
+        public static final int group1=0x7f070026;
+        public static final int imageView1=0x7f07001e;
+        public static final int landscape_fragment=0x7f07001a;
+        public static final int landscape_fragmentl=0x7f07001c;
         public static final int landscapebutton=0x7f070017;
-        public static final int menu_settings=0x7f07001e;
+        public static final int menu_settings=0x7f07001f;
         public static final int paired_devices=0x7f070001;
-        public static final int portrait_fragment=0x7f07001a;
-        public static final int portraitbutton=0x7f07001c;
-        public static final int resetLine=0x7f070022;
-        public static final int testmenu=0x7f07001f;
+        public static final int portrait_fragment=0x7f07001b;
+        public static final int portraitbutton=0x7f07001d;
+        public static final int resetLine=0x7f070023;
+        public static final int restart=0x7f070025;
+        public static final int testmenu=0x7f070020;
+        public static final int textView1=0x7f070019;
         public static final int textViewLabelBluetooth=0x7f070004;
         public static final int textViewLabelDistanceBack=0x7f070010;
         public static final int textViewLabelDistanceBackSide=0x7f070014;
@@ -58,7 +63,7 @@ public final class R {
         public static final int textViewValueStatus=0x7f070007;
         public static final int textViewValueX=0x7f070009;
         public static final int textViewValueY=0x7f07000b;
-        public static final int toggle=0x7f070021;
+        public static final int toggle=0x7f070022;
         public static final int toggleMode=0x7f070016;
     }
     public static final class layout {
@@ -79,7 +84,8 @@ public final class R {
         public static final int app_name=0x7f040000;
         public static final int bluetooth_label=0x7f040015;
         public static final int bt_adapter_available=0x7f04000b;
-        public static final int bt_connect_hint=0x7f04001e;
+        public static final int bt_connect_hint=0x7f040020;
+        public static final int data=0x7f04001f;
         public static final int dc_bluetooth=0x7f04001a;
         public static final int disconnetButton=0x7f040016;
         public static final int distance_back_side_value=0x7f040014;
@@ -92,6 +98,7 @@ public final class R {
         public static final int menu_settings=0x7f040001;
         public static final int portraitButton=0x7f040018;
         public static final int resetLine=0x7f04001d;
+        public static final int restart=0x7f04001e;
         public static final int setupBluetooth=0x7f040009;
         public static final int testButton=0x7f040019;
         public static final int text_scan_bt_devices=0x7f04000a;

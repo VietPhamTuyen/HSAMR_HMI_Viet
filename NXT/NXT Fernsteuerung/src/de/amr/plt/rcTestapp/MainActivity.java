@@ -48,12 +48,13 @@ import android.os.Bundle;
 
 public class MainActivity extends Activity {
 
-	public static float current_posx = 1000;
-	public static float current_posy = 300;
+	public static float current_posx;
+	public static float current_posy;
 	public static ArrayList<Integer> position_listx = new ArrayList<Integer>();
 	public static ArrayList<Integer> position_listy = new ArrayList<Integer>();
 
 	static public Map_canvas map;
+	public static boolean connection;
 
 	// representing local Bluetooth adapter
 	BluetoothAdapter mBtAdapter = null;
@@ -72,7 +73,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Log.i("info", "onCreate");
 		setFragment();
-
+		current_posx = calc_posx(0);
+		current_posy = calc_posy(0);
+		connection = false;
 		// setContentView(R.layout.activity_main);
 	}
 
@@ -92,8 +95,14 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
+
+		case R.id.restart:
+			restartActivity();
+			break;
+
 		case R.id.testmenu:
 			TestButton(findViewById(R.id.testmenu));
 
@@ -156,7 +165,6 @@ public class MainActivity extends Activity {
 		inflater.inflate(R.menu.activity_main_action, menu);
 		return super.onCreateOptionsMenu(menu);
 
-		// return true;
 	}
 
 	@Override
@@ -300,7 +308,7 @@ public class MainActivity extends Activity {
 	 */
 	private void displayDataNXT() {
 
-		map = new Map_canvas(this, 1);
+		// map = new Map_canvas(this, 1);
 		new Timer().schedule(new TimerTask() {
 
 			@Override
@@ -320,32 +328,30 @@ public class MainActivity extends Activity {
 								if (hmiModule != null) {
 									// display x value
 									final TextView fld_xPos = (TextView) findViewById(R.id.textViewValueX);
-									x_anzeige =hmiModule.getPosition().getX();
+									x_anzeige = hmiModule.getPosition().getX();
 									current_posx = calc_posx(x_anzeige);
 
-								
-										if (current_posx != position_listx.get(position_listx.size())) {
-											position_listx.add((int) current_posx);
-										}
+									if (current_posx != position_listx
+											.get(position_listx.size())) {
+										position_listx.add((int) current_posx);
+									}
 
-									fld_xPos.setText(String
-											.valueOf(x_anzeige + " cm"));
-									
-									//TODO
-									
-									
+									fld_xPos.setText(String.valueOf(x_anzeige
+											+ " cm"));
+
+									// TODO
+
 									// display y value
 									final TextView fld_yPos = (TextView) findViewById(R.id.textViewValueY);
 									y_anzeige = hmiModule.getPosition().getY();
 									current_posy = calc_posy(y_anzeige);
-									
-									
-									
-									if (current_posy != position_listy.get(position_listy.size())) {
+
+									if (current_posy != position_listy
+											.get(position_listy.size())) {
 										position_listy.add((int) current_posy);
 									}
-									fld_yPos.setText(String
-											.valueOf(y_anzeige + " cm"));
+									fld_yPos.setText(String.valueOf(y_anzeige
+											+ " cm"));
 									// display angle value
 									final TextView fld_angle = (TextView) findViewById(R.id.TextViewValueAngle);
 									fld_angle.setText(String.valueOf(hmiModule
@@ -383,8 +389,10 @@ public class MainActivity extends Activity {
 									// display connection status
 									if (hmiModule.isConnected()) {
 										fld_bluetooth.setText("connected");
+										connection = true;
 									} else {
 										fld_bluetooth.setText("not connected");
+										connection = false;
 									}
 									// restart activity when disconnecting
 									if (hmiModule.getCurrentStatus() == CurrentStatus.EXIT) {
@@ -392,11 +400,49 @@ public class MainActivity extends Activity {
 										restartActivity();
 									}
 
-									
-
 								}
 							} catch (Exception e) {
-								// Log.i("info","error getData cant show data");
+								// TODO
+								try{
+								// display x value
+								final TextView fld_xPos = (TextView) findViewById(R.id.textViewValueX);
+								fld_xPos.setText("0");
+								// display y value
+								final TextView fld_yPos = (TextView) findViewById(R.id.textViewValueY);
+								fld_yPos.setText("0");
+								// display angle value
+								final TextView fld_angle = (TextView) findViewById(R.id.TextViewValueAngle);
+								fld_angle.setText("x");
+								// display status of NXT
+								final TextView fld_status = (TextView) findViewById(R.id.textViewValueStatus);
+								fld_status.setText("x");
+								// display distance front
+								final TextView fld_distance_front = (TextView) findViewById(R.id.textViewValueDistanceFront);
+								fld_distance_front.setText("x");
+								// display distance back
+								final TextView fld_distance_back = (TextView) findViewById(R.id.textViewValueDistanceBack);
+								fld_distance_back.setText("x");
+								// display distance right
+								final TextView fld_distance_front_side = (TextView) findViewById(R.id.textViewValueDistanceFrontSide);
+								fld_distance_front_side.setText("x");
+								// display distance left
+								final TextView fld_distance_back_side = (TextView) findViewById(R.id.textViewValueDistanceBackSide);
+								fld_distance_back_side.setText("x");
+								// display bluetooth connection status
+								final TextView fld_bluetooth = (TextView) findViewById(R.id.textViewValueBluetooth);
+								// display connection status
+
+								fld_bluetooth.setText("not connected");
+								}catch(Exception a){
+									
+								}
+								connection = false;
+
+								current_posx = calc_posx(0);
+								current_posy = calc_posy(0);
+								Log.i("info",
+										"error DisplayData NXT cant show data");
+
 							}
 
 						}
@@ -465,7 +511,7 @@ public class MainActivity extends Activity {
 	 * testing stuff
 	 */
 	public void TestButton(View view) {
-//TODO
+
 		Toast.makeText(this, "UAUAUAUA6516UAUAUA", Toast.LENGTH_SHORT).show();
 
 		position_listx.add(0);
@@ -485,41 +531,34 @@ public class MainActivity extends Activity {
 
 		position_listx.add(800);
 		position_listy.add(296);
-		
+
 		position_listx.add(calc_posx(100));
 		position_listy.add(calc_posy(100));
-		
-		position_listx.add(calc_posx(0));
-		position_listy.add(calc_posy(0));
-		
-		position_listx.add(calc_posx(5));
-		position_listy.add(calc_posy(-5));
-		
-		position_listx.add(calc_posx(-5));
-		position_listy.add(calc_posy(-5));
-		
-		position_listx.add(calc_posx(-5));
-		position_listy.add(calc_posy(5));
-		
-		position_listx.add(calc_posx(5));
-		position_listy.add(calc_posy(5));
-		
-		position_listx.add(calc_posx(0));
-		position_listy.add(calc_posy(0));
-		
 
-		
+		position_listx.add(calc_posx(0));
+		position_listy.add(calc_posy(0));
+
+		position_listx.add(calc_posx(5));
+		position_listy.add(calc_posy(-5));
+
+		position_listx.add(calc_posx(-5));
+		position_listy.add(calc_posy(-5));
+
+		position_listx.add(calc_posx(-5));
+		position_listy.add(calc_posy(5));
+
+		position_listx.add(calc_posx(5));
+		position_listy.add(calc_posy(5));
+
+		position_listx.add(calc_posx(0));
+		position_listy.add(calc_posy(0));
+
 		position_listx.add(calc_posx(180));
 		position_listy.add(calc_posy(0));
-		
+
 		position_listx.add(calc_posx(180));
 		position_listy.add(calc_posy(60));
-		
 
-		
-
-		
-		
 		Configuration configInfo = getResources().getConfiguration();
 
 		if (configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -537,9 +576,6 @@ public class MainActivity extends Activity {
 	 * create bluetooth connection
 	 */
 	public void setBluetooth(View view) {
-		//TODO
-		// Toast.makeText(this, "UAUAUAUA6516UAUAUA",
-		// Toast.LENGTH_SHORT).show();
 
 		mBtAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -688,7 +724,6 @@ public class MainActivity extends Activity {
 				FragmentPortrait fragmentPortrait = new FragmentPortrait();
 				fragmentTransaction.replace(android.R.id.content,
 						fragmentPortrait);
-				
 
 			}
 
@@ -705,8 +740,8 @@ public class MainActivity extends Activity {
 	 */
 	public void resetLine() {
 		Configuration configInfo = getResources().getConfiguration();
-		current_posx = 0;
-		current_posy = 0;
+		current_posx = calc_posx(0);
+		current_posy = calc_posy(0);
 
 		position_listx.clear();
 		position_listy.clear();
@@ -717,7 +752,6 @@ public class MainActivity extends Activity {
 			setContentView(map);
 		} else {
 
-			
 		}
 
 	}
@@ -750,7 +784,7 @@ public class MainActivity extends Activity {
 	 */
 	private void getData() {
 
-		map = new Map_canvas(this, 1);
+		// map = new Map_canvas(this, 1);
 
 		try {
 
@@ -762,75 +796,68 @@ public class MainActivity extends Activity {
 
 				@Override
 				public void run() {
-					Log.i("info", "getData 2");
 					while (orientation == false) {
-						Log.i("info", "getData 3");
+
 						try {
 							Thread.sleep(1500);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-						// Log.i("info","getData2");
 						runOnUiThread(new Runnable() {
 							public void run() {
 
-								
 								if (hmiModule != null) {
 									try {
 
 										// display x value
-										final TextView fld_xPos = (TextView) findViewById(R.id.textViewValueX);
-										//TODO
-										current_posx = calc_posx(hmiModule.getPosition().getX());
-
-										if (current_posx != position_listx.get(position_listx.size())) {
-											position_listx.add((int) current_posx);
+										current_posx = calc_posx(hmiModule
+												.getPosition().getX());
+										if (current_posx != position_listx
+												.get(position_listx.size())) {
+											position_listx
+													.add((int) current_posx);
 										}
 
-										fld_xPos.setText(String
-												.valueOf(current_posx + " cm"));
 										// display y value
-										final TextView fld_yPos = (TextView) findViewById(R.id.textViewValueY);
-										current_posy = calc_posy(hmiModule.getPosition().getY());
-
-										if (current_posy != position_listy.get(position_listy.size())) {
-											position_listy.add((int) current_posy);
+										current_posy = calc_posy(hmiModule
+												.getPosition().getY());
+										if (current_posy != position_listy
+												.get(position_listy.size())) {
+											position_listy
+													.add((int) current_posy);
 										}
 
-										fld_yPos.setText(String
-												.valueOf(current_posy + " cm"));
 										// display angle value
-										final TextView fld_angle = (TextView) findViewById(R.id.TextViewValueAngle);
+
 										String.valueOf(hmiModule.getPosition()
 												.getAngle());
 										// display status of NXT
-										final TextView fld_status = (TextView) findViewById(R.id.textViewValueStatus);
+
 										String.valueOf(hmiModule
 												.getCurrentStatus());
 										// display distance front
-										final TextView fld_distance_front = (TextView) findViewById(R.id.textViewValueDistanceFront);
+
 										String.valueOf(hmiModule.getPosition()
 												.getDistanceFront());
 										// display distance back
-										final TextView fld_distance_back = (TextView) findViewById(R.id.textViewValueDistanceBack);
+
 										String.valueOf(hmiModule.getPosition()
 												.getDistanceBack());
 										// display distance right
-										final TextView fld_distance_front_side = (TextView) findViewById(R.id.textViewValueDistanceFrontSide);
+
 										String.valueOf(hmiModule.getPosition()
 												.getDistanceFrontSide());
 										// display distance left
-										final TextView fld_distance_back_side = (TextView) findViewById(R.id.textViewValueDistanceBackSide);
+
 										String.valueOf(hmiModule.getPosition()
 												.getDistanceBackSide());
-										// display bluetooth connection status
-										final TextView fld_bluetooth = (TextView) findViewById(R.id.textViewValueBluetooth);
+
 										// display connection status
 										if (hmiModule.isConnected()) {
-											fld_bluetooth.setText("connected");
+											connection = true;
+
 										} else {
-											fld_bluetooth
-													.setText("not connected");
+											connection = false;
 										}
 										// restart activity when disconnecting
 										if (hmiModule.getCurrentStatus() == CurrentStatus.EXIT) {
@@ -838,7 +865,11 @@ public class MainActivity extends Activity {
 											restartActivity();
 										}
 									} catch (Exception e) {
-										 Log.i("info","error getData cant show data");
+										current_posx = calc_posx(0);
+										current_posy = calc_posy(0);
+
+										Log.i("info",
+												"error getData cant show data");
 									}
 									try {
 										create_map(false);
@@ -867,7 +898,7 @@ public class MainActivity extends Activity {
 			map = new Map_canvas(this, 0);
 			setContentView(map);
 		} else {
-			
+
 		}
 
 	}
@@ -895,20 +926,23 @@ public class MainActivity extends Activity {
 		}
 
 	}
-	
-	public int calc_posx(float x_koort){
+
+	public int calc_posx(float x_koort) {
 		int x;
-		x = (int)Math.round((x_koort*4.1795918367) + (20*(4.1795918367)));
-		
+		x = (int) Math.round((x_koort * 4.1795918367) + (20 * (4.1795918367)));
+
 		return x;
 	}
-	
-	
-	public int calc_posy(float y_koort){
+
+	public int calc_posy(float y_koort) {
 		int y;
-		y = (int)Math.round(-y_koort *4 + 293);
-		
+		y = (int) Math.round(-y_koort * 4 + 293);
+
 		return y;
+	}
+
+	public boolean getConnection() {
+		return connection;
 	}
 
 }
