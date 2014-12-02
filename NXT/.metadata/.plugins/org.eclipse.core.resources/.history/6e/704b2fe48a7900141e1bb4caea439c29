@@ -32,7 +32,6 @@
     <string name="resetLine">Reset Pfad</string>
     <string name="restart">Restart App</string>
     <string name="data">NXT Data</string>
-    <string name="no_parking_slots">Number of parkingslots:</string>
     <string name="bt_connect_hint">Please select a Robot from the list. Make sure it has been paired, is within bluetooth reach and has been set to connect mode.</string>
 
 </resources>

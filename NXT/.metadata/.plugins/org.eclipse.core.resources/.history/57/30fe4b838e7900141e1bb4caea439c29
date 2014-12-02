@@ -57,8 +57,6 @@ public class Map_canvas extends View {
 
 	private int current_posx;
 	private int current_posy;
-	
-	private static int no_slots;
 
 	public static ArrayList<Integer> position_listx = new ArrayList<Integer>();
 	public static ArrayList<Integer> position_listy = new ArrayList<Integer>();
@@ -137,7 +135,7 @@ public class Map_canvas extends View {
 			// canvas.drawBitmap(map,0, 0, null);
 			canvas.drawBitmap(map, null, dest, null);
 			zaehler = 0;
-/*
+
 			while (zaehler < position_listx.size()) {
 				try {
 					canvas.drawLine(position_listx.get(zaehler),
@@ -151,9 +149,8 @@ public class Map_canvas extends View {
 					// "position_list");
 				}
 				zaehler++;
+
 			}
-			
-*/
 
 			/*
 			 * for(int zaehler = 1; zaehler == position_listx.size();
@@ -175,16 +172,6 @@ public class Map_canvas extends View {
 				canvas.drawBitmap(noconnect,924,0 , null);
 			}
 			
-			
-			no_slots =main.get_no_park();
-			
-			if(no_slots > 0){
-				//TODO
-			}
-			
-			
-			
-
 			
 		} else if (orientation == 1) {
 

@@ -316,7 +316,7 @@ public class MainActivity extends Activity {
 			public void run() {
 				while (orientation == true) {
 					try {
-						Thread.sleep(15000);
+						Thread.sleep(1500);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -592,11 +592,11 @@ public class MainActivity extends Activity {
 	public void setBluetooth(View view) {
 
 		mBtAdapter = BluetoothAdapter.getDefaultAdapter();
-		new Thread(new Runnable() {
-	        public void run() {
+
 		// If the adapter is null, then Bluetooth is not supported
 		if (mBtAdapter == null) {
-//			Toast.makeText(this, "Bluetooth is not available",Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Bluetooth is not available",
+					Toast.LENGTH_SHORT).show();
 			finish();
 			return;
 		}
@@ -608,28 +608,12 @@ public class MainActivity extends Activity {
 			startActivityForResult(serverIntent, REQUEST_SETUP_BT_CONNECTION);
 
 		} catch (Exception e) {
-//			Toast.makeText(this, "Bluetooth does not work!!!!!!",Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Bluetooth does not work!!!!!!",
+					Toast.LENGTH_SHORT).show();
 			Log.i("Bluetooth", " Error " + e.getMessage());
 		}
 
-	        }
-		}).start();
-		
-		
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	/**
      * 
@@ -765,7 +749,7 @@ public class MainActivity extends Activity {
 					while (orientation == false) {
 
 						try {
-							Thread.sleep(15000);
+							Thread.sleep(1500);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}

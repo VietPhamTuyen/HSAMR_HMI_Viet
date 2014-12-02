@@ -137,7 +137,7 @@ public class Map_canvas extends View {
 			// canvas.drawBitmap(map,0, 0, null);
 			canvas.drawBitmap(map, null, dest, null);
 			zaehler = 0;
-/*
+
 			while (zaehler < position_listx.size()) {
 				try {
 					canvas.drawLine(position_listx.get(zaehler),
@@ -151,9 +151,8 @@ public class Map_canvas extends View {
 					// "position_list");
 				}
 				zaehler++;
+
 			}
-			
-*/
 
 			/*
 			 * for(int zaehler = 1; zaehler == position_listx.size();
@@ -184,7 +183,12 @@ public class Map_canvas extends View {
 			
 			
 			
-
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		} else if (orientation == 1) {
 

@@ -29,7 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import de.amr.plt.rcParkingRobot.AndroidHmiPLT;
-import de.amr.plt.rcParkingRobot.IAndroidHmi.ParkingSlot;
+import de.amr.plt.rcTestapp.Canvas.Car_canvas;
 import de.amr.plt.rcTestapp.Canvas.Map_canvas;
 
 import android.app.Activity;
@@ -52,7 +52,6 @@ public class MainActivity extends Activity {
 	public static float current_posy;
 	public static ArrayList<Integer> position_listx = new ArrayList<Integer>();
 	public static ArrayList<Integer> position_listy = new ArrayList<Integer>();
-	public static int no_slots;
 
 	static public Map_canvas map;
 	public static boolean connection;
@@ -316,7 +315,7 @@ public class MainActivity extends Activity {
 			public void run() {
 				while (orientation == true) {
 					try {
-						Thread.sleep(15000);
+						Thread.sleep(1500);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -388,8 +387,6 @@ public class MainActivity extends Activity {
 
 									// TODO //display number of Parking Slots
 									final TextView fld_no_parkingslots = (TextView) findViewById(R.id.textViewValueNoParkingSlots);
-									save_no_park(hmiModule.getNoOfParkingSlots());
-									
 									fld_no_parkingslots.setText(String
 											.valueOf(hmiModule
 													.getNoOfParkingSlots()));
@@ -448,14 +445,14 @@ public class MainActivity extends Activity {
 
 									fld_bluetooth.setText("not connected");
 								} catch (Exception a) {
-									Log.i("ERROR", " DISPLAYDATA NXT Exception a " + a.getMessage());
+
 								}
 								connection = false;
-								//TODO
-								create_map(true);
+
 								current_posx = calc_posx(0);
 								current_posy = calc_posy(0);
-								Log.i("ERROR", " DISPLAYDATA NXT Exception e " + e.getMessage());
+								Log.i("info",
+										"error DisplayData NXT cant show data");
 
 							}
 
@@ -592,11 +589,11 @@ public class MainActivity extends Activity {
 	public void setBluetooth(View view) {
 
 		mBtAdapter = BluetoothAdapter.getDefaultAdapter();
-		new Thread(new Runnable() {
-	        public void run() {
+
 		// If the adapter is null, then Bluetooth is not supported
 		if (mBtAdapter == null) {
-//			Toast.makeText(this, "Bluetooth is not available",Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Bluetooth is not available",
+					Toast.LENGTH_SHORT).show();
 			finish();
 			return;
 		}
@@ -608,28 +605,12 @@ public class MainActivity extends Activity {
 			startActivityForResult(serverIntent, REQUEST_SETUP_BT_CONNECTION);
 
 		} catch (Exception e) {
-//			Toast.makeText(this, "Bluetooth does not work!!!!!!",Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Bluetooth does not work!!!!!!",
+					Toast.LENGTH_SHORT).show();
 			Log.i("Bluetooth", " Error " + e.getMessage());
 		}
 
-	        }
-		}).start();
-		
-		
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	/**
      * 
@@ -657,7 +638,71 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	/**
+	 * set bluetooth and toggle (old)
+	 */
+	public void setBluetoothOld() {
+		setContentView(R.layout.activity_main);
+		// get the BT-Adapter
+		mBtAdapter = BluetoothAdapter.getDefaultAdapter();
 
+		// If the adapter is null, then Bluetooth is not supported
+		if (mBtAdapter == null) {
+			Toast.makeText(this, "Bluetooth is not available",
+					Toast.LENGTH_SHORT).show();
+			finish();
+			return;
+		}
+
+		final Button connectButton = (Button) findViewById(R.id.buttonSetupBluetooth);
+		// on click call the BluetoothActivity to choose a listed device
+		connectButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				try {
+					Intent serverIntent = new Intent(getApplicationContext(),
+							BluetoothActivity.class);
+					startActivityForResult(serverIntent,
+							REQUEST_SETUP_BT_CONNECTION);
+					Log.i("setonclicklistener", "bluetooth button aktiviert");
+				} catch (Exception e) {
+					// Toast.makeText(this, "BLUETOOTH ERRORORORORORORROROR",
+					// Toast.LENGTH_SHORT).show();
+					Log.e("Bluetooth", "error Connect ");
+				}
+
+			}
+		});
+
+		// toggle button allows user to set mode of the NXT device
+		final ToggleButton toggleButton = (ToggleButton) findViewById(R.id.toggleMode);
+		// disable button initially
+		// toggleButton.setEnabled(false);
+		// on click change mode
+		toggleButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				boolean checked = ((ToggleButton) v).isChecked();
+				try {
+
+					if (checked) {
+						// if toggle is checked change mode to SCOUT
+						hmiModule.setMode(Mode.SCOUT);
+						Log.e("Toggle", "Toggled to Scout");
+					} else {
+						// otherwise change mode to PAUSE
+						hmiModule.setMode(Mode.PAUSE);
+						Log.e("Toggle", "Toggled to Pause");
+					}
+
+				} catch (Exception e) {
+					// Toast.makeText(this, "Toggle does not work!!!!!!",
+					// Toast.LENGTH_SHORT).show();
+					Log.i("Toggle ", "Error2 " + e.getMessage());
+				}
+
+			}
+		});
+
+	}
 
 	/**
 	 * create a fragment for landscape/ portrait mode -> switch on configuration
@@ -765,7 +810,7 @@ public class MainActivity extends Activity {
 					while (orientation == false) {
 
 						try {
-							Thread.sleep(15000);
+							Thread.sleep(1500);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -819,7 +864,6 @@ public class MainActivity extends Activity {
 												.getDistanceBackSide());
 
 										// display number of Parking Slots
-										save_no_park(hmiModule.getNoOfParkingSlots());
 										String.valueOf(hmiModule
 												.getNoOfParkingSlots());
 
@@ -915,25 +959,5 @@ public class MainActivity extends Activity {
 	public boolean getConnection() {
 		return connection;
 	}
-	
-	
-	
-	public void save_no_park(int number){
-		no_slots = number;
-	}
-	
-	public int get_no_park(){
-		return no_slots;
-	}
-	
-	
-	public ParkingSlot get_slot(int slot){
-//		hmiModule.getFrontBoundaryPosition();
-		
-		
-	return hmiModule.getParkingSlot(slot);
-	}
-	
-
 
 }

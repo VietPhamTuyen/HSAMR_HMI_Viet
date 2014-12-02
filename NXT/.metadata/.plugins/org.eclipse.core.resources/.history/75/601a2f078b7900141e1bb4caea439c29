@@ -232,44 +232,6 @@
         android:paddingRight="30dp"
         android:textSize="24dp" />
 
-    <TextView
-        android:id="@+id/textViewLabelNoParkingSlots"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textViewLabelDistanceBackSide"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/textViewValueDistanceBackSide"
-        android:paddingLeft="30dp"
-        android:text="@string/no_parking_slots"
-        android:textSize="24dp" />
-    
-    <TextView
-        android:id="@+id/textViewValueNoParkingSlots"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewLabelNoParkingSlots"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textViewLabelNoParkingSlots"
-        android:gravity="right"
-        android:paddingRight="30dp"
-        android:textSize="24dp" />
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     <ToggleButton
         android:id="@+id/toggleMode"
         android:layout_width="wrap_content"

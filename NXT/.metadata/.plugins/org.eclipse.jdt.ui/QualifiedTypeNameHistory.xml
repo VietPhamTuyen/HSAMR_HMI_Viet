@@ -26,4 +26,5 @@
 <fullyQualifiedTypeName name="android.graphics.PorterDuffXfermode"/>
 <fullyQualifiedTypeName name="de.amr.plt.rcTestapp.Canvas.Car_canvas"/>
 <fullyQualifiedTypeName name="android.graphics.drawable.BitmapDrawable"/>
+<fullyQualifiedTypeName name="de.amr.plt.rcParkingRobot.IAndroidHmi.ParkingSlot"/>
 </qualifiedTypeNameHistroy>
