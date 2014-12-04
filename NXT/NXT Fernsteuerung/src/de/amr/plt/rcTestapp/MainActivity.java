@@ -121,20 +121,16 @@ public class MainActivity extends Activity {
 			try {
 
 				if (item.isChecked()) {
-					if (setToggle(findViewById(R.id.toggle), true)) {
-						item.setChecked(false);
-						Toast.makeText(this, "Toggle set to false",
-								Toast.LENGTH_SHORT).show();
-					}
+					 if (setToggle(findViewById(R.id.toggle), false)) {
+					 item.setChecked(false);
+					 }
 
 				}
 
 				else {
-					if (!setToggle(findViewById(R.id.toggle), false)) {
-						item.setChecked(true);
-						Toast.makeText(this, "Toggle set to true",
-								Toast.LENGTH_SHORT).show();
-					}
+					 if (setToggle(findViewById(R.id.toggle), true)) {
+					 item.setChecked(true);
+					 }
 
 				}
 			} catch (Exception e) {
@@ -171,6 +167,9 @@ public class MainActivity extends Activity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		hmiModule.setMode(Mode.PAUSE);
+		terminateBluetoothConnection();
+
 		Log.i("info", "onDestroy");
 		if (mBtAdapter != null) {
 			// release resources
@@ -316,51 +315,73 @@ public class MainActivity extends Activity {
 			public void run() {
 				while (orientation == true) {
 					try {
-						Thread.sleep(15000);
+						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+
 					// Log.i("info","Display DataNXT");
 					runOnUiThread(new Runnable() {
+
 						public void run() {
 							float x_anzeige;
 							float y_anzeige;
+							
+							
+
+
 							try {
 								if (hmiModule != null) {
 									// display x value
 									final TextView fld_xPos = (TextView) findViewById(R.id.textViewValueX);
+
 									x_anzeige = hmiModule.getPosition().getX();
+
 									current_posx = calc_posx(x_anzeige);
 
-									if (current_posx != position_listx
-											.get(position_listx.size())) {
+									try {
+										if (current_posx != position_listx
+												.get(position_listx.size())) {
+											position_listx
+													.add((int) current_posx);
+										}
+									} catch (Exception e) {
 										position_listx.add((int) current_posx);
 									}
 
 									fld_xPos.setText(String.valueOf(x_anzeige
 											+ " cm"));
 
-									// TODO
-
 									// display y value
 									final TextView fld_yPos = (TextView) findViewById(R.id.textViewValueY);
 									y_anzeige = hmiModule.getPosition().getY();
 									current_posy = calc_posy(y_anzeige);
 
-									if (current_posy != position_listy
-											.get(position_listy.size())) {
+									// display y value
+									current_posy = calc_posy(hmiModule
+											.getPosition().getY());
+									try {
+										if (current_posy != position_listy
+												.get(position_listy.size())) {
+											position_listy
+													.add((int) current_posy);
+										}
+									} catch (Exception e) {
 										position_listy.add((int) current_posy);
 									}
+
 									fld_yPos.setText(String.valueOf(y_anzeige
 											+ " cm"));
 									// display angle value
 									final TextView fld_angle = (TextView) findViewById(R.id.TextViewValueAngle);
 									fld_angle.setText(String.valueOf(hmiModule
-											.getPosition().getAngle() + "Â°"));
+											.getPosition().getAngle() + "°"));
+
 									// display status of NXT
 									final TextView fld_status = (TextView) findViewById(R.id.textViewValueStatus);
 									fld_status.setText(String.valueOf(hmiModule
 											.getCurrentStatus()));
+
 									// display distance front
 									final TextView fld_distance_front = (TextView) findViewById(R.id.textViewValueDistanceFront);
 									fld_distance_front.setText(String
@@ -388,8 +409,9 @@ public class MainActivity extends Activity {
 
 									// TODO //display number of Parking Slots
 									final TextView fld_no_parkingslots = (TextView) findViewById(R.id.textViewValueNoParkingSlots);
-									save_no_park(hmiModule.getNoOfParkingSlots());
-									
+									save_no_park(hmiModule
+											.getNoOfParkingSlots());
+
 									fld_no_parkingslots.setText(String
 											.valueOf(hmiModule
 													.getNoOfParkingSlots()));
@@ -410,6 +432,9 @@ public class MainActivity extends Activity {
 										restartActivity();
 									}
 
+								} else {
+									final TextView fld_bluetooth = (TextView) findViewById(R.id.textViewValueBluetooth);
+									fld_bluetooth.setText("not existing");
 								}
 							} catch (Exception e) {
 								// TODO
@@ -448,20 +473,25 @@ public class MainActivity extends Activity {
 
 									fld_bluetooth.setText("not connected");
 								} catch (Exception a) {
-									Log.i("ERROR", " DISPLAYDATA NXT Exception a " + a.getMessage());
+									Log.i("ERROR",
+											" DISPLAYDATA NXT Exception a "
+													+ a.getMessage());
 								}
 								connection = false;
-								//TODO
+								// TODO
 								create_map(true);
 								current_posx = calc_posx(0);
 								current_posy = calc_posy(0);
-								Log.i("ERROR", " DISPLAYDATA NXT Exception e " + e.getMessage());
+								Log.i("ERROR", " DISPLAYDATA NXT Exception e "
+										+ e.getMessage());
 
 							}
 
+						
 						}
+
 					});
-				}
+			}
 			}
 		}, 200, 100);
 
@@ -593,43 +623,33 @@ public class MainActivity extends Activity {
 
 		mBtAdapter = BluetoothAdapter.getDefaultAdapter();
 		new Thread(new Runnable() {
-	        public void run() {
-		// If the adapter is null, then Bluetooth is not supported
-		if (mBtAdapter == null) {
-//			Toast.makeText(this, "Bluetooth is not available",Toast.LENGTH_SHORT).show();
-			finish();
-			return;
-		}
-		try {
-			// on click call the BluetoothActivity to choose a listed device
+			public void run() {
+				// If the adapter is null, then Bluetooth is not supported
+				if (mBtAdapter == null) {
+					// Toast.makeText(this,
+					// "Bluetooth is not available",Toast.LENGTH_SHORT).show();
+					finish();
+					return;
+				}
+				try {
+					// on click call the BluetoothActivity to choose a listed
+					// device
 
-			Intent serverIntent = new Intent(getApplicationContext(),
-					BluetoothActivity.class);
-			startActivityForResult(serverIntent, REQUEST_SETUP_BT_CONNECTION);
+					Intent serverIntent = new Intent(getApplicationContext(),
+							BluetoothActivity.class);
+					startActivityForResult(serverIntent,
+							REQUEST_SETUP_BT_CONNECTION);
 
-		} catch (Exception e) {
-//			Toast.makeText(this, "Bluetooth does not work!!!!!!",Toast.LENGTH_SHORT).show();
-			Log.i("Bluetooth", " Error " + e.getMessage());
-		}
+				} catch (Exception e) {
+					// Toast.makeText(this,
+					// "Bluetooth does not work!!!!!!",Toast.LENGTH_SHORT).show();
+					Log.i("Bluetooth", " Error " + e.getMessage());
+				}
 
-	        }
+			}
 		}).start();
-		
-		
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	/**
      * 
@@ -637,14 +657,19 @@ public class MainActivity extends Activity {
 	public boolean setToggle(View view, boolean check) {
 		try {
 			if (check) {
+				//TODO toggle does not work - vielleicht auf der NXT seite nicht initialisiert?
 				// if toggle is checked change mode to SCOUT
 				hmiModule.setMode(Mode.SCOUT);
 				Log.e("Toggle", "Toggled to Scout");
+				Toast.makeText(this, "Toggle set to scout",
+						Toast.LENGTH_SHORT).show();
 			} else {
 
 				// otherwise change mode to PAUSE
 				hmiModule.setMode(Mode.PAUSE);
 				Log.e("Toggle", "Toggled to Pause");
+				Toast.makeText(this, "Toggle set to Pause",
+						Toast.LENGTH_SHORT).show();
 			}
 
 			return true;
@@ -656,8 +681,6 @@ public class MainActivity extends Activity {
 			return false;
 		}
 	}
-
-
 
 	/**
 	 * create a fragment for landscape/ portrait mode -> switch on configuration
@@ -762,15 +785,16 @@ public class MainActivity extends Activity {
 
 				@Override
 				public void run() {
-					while (orientation == false) {
 
-						try {
-							Thread.sleep(15000);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						runOnUiThread(new Runnable() {
-							public void run() {
+					runOnUiThread(new Runnable() {
+						public void run() {
+							while (getOrientation() == false) {
+
+								try {
+									Thread.sleep(100);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
 
 								if (hmiModule != null) {
 									try {
@@ -778,8 +802,13 @@ public class MainActivity extends Activity {
 										// display x value
 										current_posx = calc_posx(hmiModule
 												.getPosition().getX());
-										if (current_posx != position_listx
-												.get(position_listx.size())) {
+										try {
+											if (current_posx != position_listx
+													.get(position_listx.size())) {
+												position_listx
+														.add((int) current_posx);
+											}
+										} catch (Exception e) {
 											position_listx
 													.add((int) current_posx);
 										}
@@ -787,8 +816,13 @@ public class MainActivity extends Activity {
 										// display y value
 										current_posy = calc_posy(hmiModule
 												.getPosition().getY());
-										if (current_posy != position_listy
-												.get(position_listy.size())) {
+										try {
+											if (current_posy != position_listy
+													.get(position_listy.size())) {
+												position_listy
+														.add((int) current_posy);
+											}
+										} catch (Exception e) {
 											position_listy
 													.add((int) current_posy);
 										}
@@ -819,7 +853,8 @@ public class MainActivity extends Activity {
 												.getDistanceBackSide());
 
 										// display number of Parking Slots
-										save_no_park(hmiModule.getNoOfParkingSlots());
+										save_no_park(hmiModule
+												.getNoOfParkingSlots());
 										String.valueOf(hmiModule
 												.getNoOfParkingSlots());
 
@@ -851,9 +886,9 @@ public class MainActivity extends Activity {
 
 								}
 							}
-						});
+						}
+					});
 
-					}
 				}
 			}, 200, 100);
 
@@ -915,25 +950,19 @@ public class MainActivity extends Activity {
 	public boolean getConnection() {
 		return connection;
 	}
-	
-	
-	
-	public void save_no_park(int number){
+
+	public void save_no_park(int number) {
 		no_slots = number;
 	}
-	
-	public int get_no_park(){
+
+	public int get_no_park() {
 		return no_slots;
 	}
-	
-	
-	public ParkingSlot get_slot(int slot){
-//		hmiModule.getFrontBoundaryPosition();
-		
-		
-	return hmiModule.getParkingSlot(slot);
-	}
-	
 
+	public ParkingSlot get_slot(int slot) {
+		// hmiModule.getFrontBoundaryPosition();
+
+		return hmiModule.getParkingSlot(slot);
+	}
 
 }

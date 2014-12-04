@@ -136,8 +136,8 @@ public class Map_canvas extends View {
 			// canvas.getHeight());
 			// canvas.drawBitmap(map,0, 0, null);
 			canvas.drawBitmap(map, null, dest, null);
-			zaehler = 0;
-/*
+			zaehler = 1;
+
 			while (zaehler < position_listx.size()) {
 				try {
 					canvas.drawLine(position_listx.get(zaehler),
@@ -153,19 +153,6 @@ public class Map_canvas extends View {
 				zaehler++;
 			}
 			
-*/
-
-			/*
-			 * for(int zaehler = 1; zaehler == position_listx.size();
-			 * zaehler++){
-			 * 
-			 * if(!(position_listx.get(zaehler+1)==null) &&
-			 * !(position_listx.get(zaehler+1)==null)){
-			 * 
-			 * canvas.drawLine(position_listx.get(zaehler),
-			 * position_listy.get(zaehler), position_listx.get(zaehler +1),
-			 * position_listy.get(zaehler+1), paint); } }
-			 */
 
 			canvas.drawBitmap(car, current_posx-21, current_posy-30, null);
 			connection = main.getConnection();
@@ -182,6 +169,9 @@ public class Map_canvas extends View {
 				//TODO
 			}
 			
+			
+			
+//			list_ParkingSlot[ID].getFrontBoundary().getX()
 			
 			
 

@@ -65,6 +65,7 @@ class ConnectThread extends Thread {
 				hmi.bTCommunicationThread.start();
 				hmi.messenger = new Messenger(hmi.messageHandler);
 			}
+			Log.i("Connect Thread","is connected--------------");
 			hmi.connected = true;
 		} 
 	
