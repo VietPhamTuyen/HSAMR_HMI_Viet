@@ -50,6 +50,9 @@ public class MainActivity extends Activity {
 
 	public static float current_posx;
 	public static float current_posy;
+	public static float last_posx;
+	public static float last_posy;
+	
 	public static ArrayList<Integer> position_listx = new ArrayList<Integer>();
 	public static ArrayList<Integer> position_listy = new ArrayList<Integer>();
 	public static int no_slots;
@@ -76,6 +79,8 @@ public class MainActivity extends Activity {
 		setFragment();
 		current_posx = calc_posx(0);
 		current_posy = calc_posy(0);
+		last_posx = current_posx;
+		last_posy= current_posy;
 		connection = false;
 		// setContentView(R.layout.activity_main);
 	}
@@ -121,16 +126,16 @@ public class MainActivity extends Activity {
 			try {
 
 				if (item.isChecked()) {
-					 if (setToggle(findViewById(R.id.toggle), false)) {
-					 item.setChecked(false);
-					 }
+					if (setToggle(findViewById(R.id.toggle), false)) {
+						item.setChecked(false);
+					}
 
 				}
 
 				else {
-					 if (setToggle(findViewById(R.id.toggle), true)) {
-					 item.setChecked(true);
-					 }
+					if (setToggle(findViewById(R.id.toggle), true)) {
+						item.setChecked(true);
+					}
 
 				}
 			} catch (Exception e) {
@@ -320,15 +325,13 @@ public class MainActivity extends Activity {
 						e.printStackTrace();
 					}
 
+
 					// Log.i("info","Display DataNXT");
 					runOnUiThread(new Runnable() {
 
 						public void run() {
 							float x_anzeige;
 							float y_anzeige;
-							
-							
-
 
 							try {
 								if (hmiModule != null) {
@@ -361,10 +364,8 @@ public class MainActivity extends Activity {
 									current_posy = calc_posy(hmiModule
 											.getPosition().getY());
 									try {
-										if (current_posy != position_listy
-												.get(position_listy.size())) {
-											position_listy
-													.add((int) current_posy);
+										if (current_posy != position_listy.get(position_listy.size())) {
+											position_listy.add((int) current_posy);
 										}
 									} catch (Exception e) {
 										position_listy.add((int) current_posy);
@@ -372,6 +373,15 @@ public class MainActivity extends Activity {
 
 									fld_yPos.setText(String.valueOf(y_anzeige
 											+ " cm"));
+									
+									
+									
+									last_posx = current_posx;
+									last_posy= current_posy;
+									
+									
+									
+									
 									// display angle value
 									final TextView fld_angle = (TextView) findViewById(R.id.TextViewValueAngle);
 									fld_angle.setText(String.valueOf(hmiModule
@@ -434,7 +444,7 @@ public class MainActivity extends Activity {
 
 								} else {
 									final TextView fld_bluetooth = (TextView) findViewById(R.id.textViewValueBluetooth);
-									fld_bluetooth.setText("not existing");
+									fld_bluetooth.setText("no Connection");
 								}
 							} catch (Exception e) {
 								// TODO
@@ -487,11 +497,18 @@ public class MainActivity extends Activity {
 
 							}
 
-						
+							if (position_listx.size() > 3000) {
+								position_listx.remove(0);
+							}
+
+							if (position_listy.size() > 3000) {
+								position_listy.remove(0);
+							}
+
 						}
 
 					});
-			}
+				}
 			}
 		}, 200, 100);
 
@@ -522,6 +539,7 @@ public class MainActivity extends Activity {
 	 * restart the activity
 	 */
 	private void restartActivity() {
+		terminateBluetoothConnection();
 		Intent restartIntent = new Intent(getApplicationContext(),
 				MainActivity.class);
 		startActivity(restartIntent);
@@ -657,19 +675,20 @@ public class MainActivity extends Activity {
 	public boolean setToggle(View view, boolean check) {
 		try {
 			if (check) {
-				//TODO toggle does not work - vielleicht auf der NXT seite nicht initialisiert?
+				// TODO toggle does not work - vielleicht auf der NXT seite
+				// nicht initialisiert?
 				// if toggle is checked change mode to SCOUT
 				hmiModule.setMode(Mode.SCOUT);
 				Log.e("Toggle", "Toggled to Scout");
-				Toast.makeText(this, "Toggle set to scout",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Toggle set to scout", Toast.LENGTH_SHORT)
+						.show();
 			} else {
 
 				// otherwise change mode to PAUSE
 				hmiModule.setMode(Mode.PAUSE);
 				Log.e("Toggle", "Toggled to Pause");
-				Toast.makeText(this, "Toggle set to Pause",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Toggle set to Pause", Toast.LENGTH_SHORT)
+						.show();
 			}
 
 			return true;
@@ -786,15 +805,15 @@ public class MainActivity extends Activity {
 				@Override
 				public void run() {
 
-					runOnUiThread(new Runnable() {
-						public void run() {
-							while (getOrientation() == false) {
+					while (getOrientation() == false) {
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 
-								try {
-									Thread.sleep(100);
-								} catch (InterruptedException e) {
-									e.printStackTrace();
-								}
+						runOnUiThread(new Runnable() {
+							public void run() {
 
 								if (hmiModule != null) {
 									try {
@@ -885,11 +904,19 @@ public class MainActivity extends Activity {
 									Log.i("info", "getData end");
 
 								}
-							}
-						}
-					});
+								if (position_listx.size() > 3000) {
+									position_listx.remove(0);
+								}
 
+								if (position_listy.size() > 3000) {
+									position_listy.remove(0);
+								}
+							}
+
+						});
+					}
 				}
+
 			}, 200, 100);
 
 		} catch (Exception e) {
@@ -899,24 +926,35 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	
+	
+	/**
+	 * create new Map_canvas orientation = false -> landscape
+	 */
 	public void create_map(boolean ori) {
 		if (orientation == false && ori == false) { // landscape
 			map = new Map_canvas(this, 0);
 			setContentView(map);
-		} else {
-
-		}
+		} 
 
 	}
 
-	public void error_ausgabe(String tag, String text) {
-		Log.i("tag", "Error " + text);
-	}
 
+	/**
+	 *return orientation
+	 * orientation = false -> landscape
+	 */
 	public static boolean getOrientation() {
 		return orientation;
 	}
 
+	
+	
+	/**
+	 * save current position in position_list
+	 * boolean x = true -> x
+	 *         x= false -> y
+	 */
 	public void save_pos(float pos, boolean x) {
 
 		if (x == true) {
@@ -933,6 +971,11 @@ public class MainActivity extends Activity {
 
 	}
 
+	
+	/**
+	 * calculate cm -> px
+	 * 1cm = 4 pc in y
+	 */
 	public int calc_posx(float x_koort) {
 		int x;
 		x = (int) Math.round((x_koort * 4.1795918367) + (20 * (4.1795918367)));
@@ -940,6 +983,10 @@ public class MainActivity extends Activity {
 		return x;
 	}
 
+	/**
+	 * calculate cm -> px
+	 * 1cm = 4 pc in y
+	 */
 	public int calc_posy(float y_koort) {
 		int y;
 		y = (int) Math.round(-y_koort * 4 + 293);
@@ -959,6 +1006,8 @@ public class MainActivity extends Activity {
 		return no_slots;
 	}
 
+	
+	
 	public ParkingSlot get_slot(int slot) {
 		// hmiModule.getFrontBoundaryPosition();
 

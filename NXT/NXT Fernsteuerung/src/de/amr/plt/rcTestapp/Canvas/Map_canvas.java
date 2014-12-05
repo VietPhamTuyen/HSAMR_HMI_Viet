@@ -136,7 +136,7 @@ public class Map_canvas extends View {
 			// canvas.getHeight());
 			// canvas.drawBitmap(map,0, 0, null);
 			canvas.drawBitmap(map, null, dest, null);
-			zaehler = 1;
+			zaehler = 0;
 
 			while (zaehler < position_listx.size()) {
 				try {
