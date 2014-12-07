@@ -7,6 +7,8 @@ import java.util.Enumeration;
 import java.util.Set;
 import java.util.UUID;
 import java.util.Vector;
+
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 
@@ -378,7 +380,7 @@ public class NXTCommAndroid implements NXTComm {
 			//Log.d(TAG, "paired devices :" + device.getName() + "\n" + device.getAddress());
 
 			if (device.getBluetoothClass().getMajorDeviceClass() == 2048) {
-				devices.add(device);
+				((Set<BluetoothDevice>) devices).add(device); //todo 
 			}
 		}
 
