@@ -14,7 +14,7 @@
     <string name="bt_adapter_available">Bluetooth adapter available</string>
     <string name="toggle_text_pause">SCOUT</string>
     <string name="toggle_text_scout">SCOUT</string>
-    <string name="togglebutton">ToggleButton</string>
+    <string name="togglebutton">Drive/Scout</string>
     <string name="textview_status">Status:</string>
     <string name="angle_Value">Angle:</string>
     <string name="distance_front_value">dist front:</string>
@@ -32,6 +32,8 @@
     <string name="resetLine">Reset Pfad</string>
     <string name="restart">Restart App</string>
     <string name="data">NXT Data</string>
+    <string name="pause">Pause</string>
+    <string name="endable_parkingslot">enable p.slots</string>
     <string name="no_parking_slots">Number of parkingslots:</string>
     <string name="bt_connect_hint">Please select a Robot from the list. Make sure it has been paired, is within bluetooth reach and has been set to connect mode.</string>
 
